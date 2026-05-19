@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Del Carbono al Silicio — Charla para Humanitarios</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ice: #f0f4f8;
+    --cold-white: #f8fafc;
+    --blue: #2563eb;
+    --blue-light: #60a5fa;
+    --blue-pale: #bfdbfe;
+    --deep: #0f172a;
+    --mid: #334155;
+    --soft: #64748b;
+    --slate: #94a3b8;
+    --cyan: #06b6d4;
+    --cyan-pale: #cffafe;
+    --crystal: #e0f2fe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cold-white);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 70%);
+    animation: breathe 7s ease-in-out infinite;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; right: -150px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
+    animation: breathe 9s ease-in-out infinite reverse;
+  }
+
+  .cover-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(96,165,250,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(96,165,250,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+
+  .cover-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(60px, 11vw, 130px);
+    font-weight: 300;
+    color: var(--cold-white);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--blue-light);
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--slate);
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-btn {
+    padding: 10px 20px;
+    border: 1px solid rgba(96,165,250,0.35);
+    background: transparent;
+    color: var(--blue-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+  }
+
+  /* SECTIONS */
+  .section {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION HEADER */
+  .section-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: var(--crystal);
+    line-height: 1;
+    margin-bottom: -20px;
+    display: block;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 40px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--blue-pale);
+    margin-bottom: 40px;
+  }
+
+  /* BODY TEXT */
+  .body-text {
+    font-size: clamp(16px, 1.8vw, 18px);
+    line-height: 1.85;
+    color: var(--mid);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    border-left: 3px solid var(--blue);
+    padding: 24px 32px;
+    margin: 40px 0;
+    background: var(--crystal);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--deep);
+    line-height: 1.5;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--ice);
+    border: 1px solid var(--blue-pale);
+    border-radius: 4px;
+    padding: 32px 36px;
+    margin: 36px 0;
+  }
+
+  .highlight-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--blue);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  .highlight-box p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* QUESTION BOX */
+  .question-box {
+    background: var(--deep);
+    border-radius: 4px;
+    padding: 36px 40px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .q-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .question-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cold-white);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .question-box p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+
+  /* CONCEPT GRID */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 600px) {
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  .concept-card {
+    background: var(--cold-white);
+    border: 1px solid var(--blue-pale);
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--blue);
+  }
+
+  .concept-card.cyan::before { background: var(--cyan); }
+
+  .concept-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--blue-pale);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .concept-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .concept-card.cyan .concept-title { color: var(--cyan); }
+
+  .concept-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  /* LEVELS GRID */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 700px) {
+    .levels-grid { grid-template-columns: 1fr; }
+  }
+
+  .level-card {
+    background: var(--ice);
+    border-radius: 4px;
+    padding: 28px 24px;
+    border-bottom: 3px solid var(--blue-pale);
+    transition: border-color 0.3s;
+  }
+
+  .level-card:hover { border-color: var(--blue); }
+
+  .level-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--blue-pale);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .level-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .level-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  /* ANCESTRAL ROW */
+  .ancestral-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+
+  .ancestral-pill {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    border: 1px solid var(--blue-pale);
+    border-radius: 4px;
+    background: var(--cold-white);
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .ancestral-place {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+
+  .ancestral-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* CLOSING */
+  .closing {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .closing-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--deep);
+    margin-bottom: 40px;
+  }
+
+  .closing-title em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .closing p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.85;
+    color: var(--mid);
+    max-width: 560px;
+    margin: 0 auto 20px;
+  }
+
+  /* REFS */
+  .refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .ref-pill {
+    font-size: 12px;
+    color: var(--blue);
+    background: var(--crystal);
+    border: 1px solid var(--blue-pale);
+    border-radius: 2px;
+    padding: 6px 14px;
+    letter-spacing: 0.3px;
+  }
+
+  /* NAV BAR */
+  .nav-bar {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--deep);
+    border: 1px solid rgba(96,165,250,0.2);
+    border-radius: 40px;
+    padding: 12px 24px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(15,23,42,0.15);
+  }
+
+  .nav-prev, .nav-next {
+    background: none;
+    border: none;
+    color: var(--blue-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-prev:hover, .nav-next:hover { color: white; }
+  .nav-prev:disabled, .nav-next:disabled { color: var(--soft); cursor: default; }
+
+  .nav-indicator {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--soft);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-dot.active {
+    background: var(--blue-light);
+    width: 20px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-grid"></div>
+  <span class="cover-eyebrow">Charla para Humanitarios · Resonancia</span>
+  <h1 class="cover-title">Del<br><em>Carbono</em><br>al Silicio</h1>
+  <p class="cover-subtitle">Una exploración del cuerpo como biotecnología viva en proceso de transformación</p>
+  <div class="cover-nav">
+    <button class="nav-btn" onclick="goTo(1)">01 · El avatar</button>
+    <button class="nav-btn" onclick="goTo(2)">02 · La transición</button>
+    <button class="nav-btn" onclick="goTo(3)">03 · Voltaje y amperaje</button>
+    <button class="nav-btn" onclick="goTo(4)">04 · El sonido ancestral</button>
+    <button class="nav-btn" onclick="goTo(5)">05 · Herramientas</button>
+    <button class="nav-btn" onclick="goTo(6)">06 · Soberanía cotidiana</button>
+    <button class="nav-btn" onclick="goTo(7)">07 · Cierre</button>
+  </div>
+</div>
+
+<!-- SECTION 1: EL AVATAR -->
+<div class="section" id="s1">
+  <span class="section-number">01</span>
+  <span class="section-tag">El punto de partida</span>
+  <h2 class="section-title">No somos solo<br><em>un cuerpo físico</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Somos un <strong>avatar</strong> — un diseño divino, una pieza biotecnológica espiritual creada para conectar con el cosmos. Tenemos dimensiones que pocas veces se nombran pero que operan todo el tiempo: el alma, el campo atómico del corazón, y un circuito bioeléctrico interno que funciona como antena para sintonizar con la malla cuántica del universo.</p>
+
+  <p class="body-text">El punto central es este: <em>siempre estuvimos conectados</em>. Lo que ocurrió durante mucho tiempo no fue una desconexión real, sino un olvido. Un olvido inducido por un sistema que nos entrenó a buscar respuestas afuera — en expertos, en instituciones, en pantallas — cuando todas las respuestas estaban ya dentro.</p>
+
+  <div class="pull-quote">
+    <p>"Ahora ya no necesitamos que nadie de afuera nos programe para vivir. Es el tiempo de escucharnos, sentirnos, y encontrar las respuestas adentro."</p>
+  </div>
+
+  <p class="body-text">La <strong>soberanía</strong> no es solo un concepto legal o político. Es, en primer lugar, una práctica íntima: aprender a escucharse, a alinearse con uno mismo, a no delegar en el afuera la tarea de definir quiénes somos. Ese es el primer acto de recuperación.</p>
+
+  <div class="highlight-box">
+    <h3>El avatar en detalle</h3>
+    <p>
+      <strong>El alma</strong> — nuestra dimensión no-física, portadora de propósito.<br><br>
+      <strong>El campo del corazón (llamatrina)</strong> — el centro energético que nos conecta con el cosmos de manera directa, sin intermediarios.<br><br>
+      <strong>El circuito bioeléctrico</strong> — la red de electricidad interna que recorre el cuerpo y que depende, entre otras cosas, de los minerales que ingerimos, del agua que bebemos, y del nivel de estrés con el que vivimos.
+    </p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Pausa para el grupo</span>
+    <h3>"¿En qué parte de tu vida seguís buscando afuera algo que en el fondo sabés que está adentro?"</h3>
+    <p>Tomense un minuto en silencio con esa pregunta. No hace falta responderla en voz alta ahora — pero sí dejarla resonar.</p>
+  </div>
+</div>
+
+<!-- SECTION 2: LA TRANSICIÓN -->
+<div class="section" id="s2">
+  <span class="section-number">02</span>
+  <span class="section-tag">La gran transformación</span>
+  <h2 class="section-title">De seres de carbono<br><em>a seres de silicio</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Algo está cambiando en nuestra estructura profunda. No de manera metafórica, sino a nivel de la materia que nos constituye. Estamos en una transición de una estructura celular basada en el <strong>carbono</strong> hacia una que incorpora la frecuencia del <strong>silicio</strong>.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">C</div>
+      <div class="concept-title">Carbono</div>
+      <p class="concept-text">Mineral de una frecuencia más densa, que nos obliga a extraer energía principalmente de los alimentos — de la materia. Es la estructura que sostiene la vida tal como la conocemos en la tercera dimensión.</p>
+    </div>
+    <div class="concept-card cyan">
+      <div class="concept-num">Si</div>
+      <div class="concept-title">Silicio</div>
+      <p class="concept-text">Mineral cristalino de voltaje más alto que permite metabolizar la luz solar directamente. Almacena información lumínica. Nos conecta con nuestra esencia y con los códigos que nos hacen únicos.</p>
+    </div>
+  </div>
+
+  <p class="body-text">El silicio es, en esencia, un cristal. Al incorporarlo en nuestra estructura celular, comenzamos a tener una <em>naturaleza más cristalina</em>: capaces de recibir, almacenar y transmitir frecuencias de luz. Esto no reemplaza al carbono de golpe — es una transición gradual que se facilita con ciertos cuidados.</p>
+
+  <div class="pull-quote">
+    <p>"El silicio no solo cambia cómo obtenemos energía. Cambia qué tipo de información podemos procesar — y recordar."</p>
+  </div>
+
+  <p class="body-text">La razón más profunda de esta transición es la <strong>memoria</strong>. El silicio es el elemento que almacena información — es literalmente el material de los chips y cristales tecnológicos. En el cuerpo humano, esa misma propiedad nos permite recuperar algo que nunca perdimos del todo: quiénes somos, para qué estamos, cuáles son nuestros códigos particulares.</p>
+
+  <div class="highlight-box">
+    <h3>¿Cómo se facilita la transición?</h3>
+    <p>
+      · Cuidar la <strong>alcalinidad del cuerpo</strong> con la dieta — cuanto más alcalino, mejor conduce la energía.<br><br>
+      · Reducir la carga de <strong>metales pesados y toxinas</strong> que bloquean el flujo de minerales conductores.<br><br>
+      · Exponerse conscientemente a la <strong>luz solar</strong> — especialmente en las primeras horas del día, cuando los fotones penetran el cuerpo con más suavidad.<br><br>
+      · Practicar el <strong>grounding</strong> — el contacto directo de los pies con la tierra para intercambiar electrones y equilibrar el campo bioeléctrico.
+    </p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Reflexión individual</span>
+    <h3>"¿Qué en tu estilo de vida actual te acerca a esta transición, y qué te la dificulta?"</h3>
+    <p>No desde la culpa — desde la curiosidad. La pregunta no es "qué hago mal" sino "qué elijo ajustar, y en qué orden".</p>
+  </div>
+</div>
+
+<!-- SECTION 3: VOLTAJE Y AMPERAJE -->
+<div class="section" id="s3">
+  <span class="section-number">03</span>
+  <span class="section-tag">La energía del cuerpo</span>
+  <h2 class="section-title">Voltaje y amperaje:<br><em>dos fuerzas vitales</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Para entender cómo funciona nuestra energía interna, hay dos conceptos clave. No son metáforas — son una forma precisa de nombrar procesos que ocurren en el cuerpo todo el tiempo, y que podemos aprender a sostener.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">V</div>
+      <div class="concept-title">Voltaje</div>
+      <p class="concept-text">Es la energía física. Depende de la alcalinidad del cuerpo, la hidratación con agua estructurada, y el equilibrio glandular. Cuando el voltaje es bajo, aparece la fatiga crónica — esa sensación de estar en modo supervivencia permanente, sin energía para el propio crecimiento.</p>
+    </div>
+    <div class="concept-card cyan">
+      <div class="concept-num">A</div>
+      <div class="concept-title">Amperaje</div>
+      <p class="concept-text">Es la fuerza vital profunda. La potencia que permite relajarse, activar la glándula pineal, tener un sueño reparador y mantener la coherencia de nuestra luz interior — la que reside en el ADN y que el cuerpo emite constantemente.</p>
+    </div>
+  </div>
+
+  <p class="body-text">Las toxinas y el estrés crónico son los principales ladrones de ambas fuerzas. Un cuerpo sobrecargado de tensión y de sustancias que no puede procesar pierde gradualmente su capacidad de irradiar y de regenerarse. La buena noticia es que ambas energías responden a cuidados concretos, sostenidos en el tiempo.</p>
+
+  <div class="highlight-box">
+    <h3>Cómo sostener el voltaje</h3>
+    <p>
+      · <strong>Dieta alcalina</strong> — priorizar vegetales, frutas, agua con minerales.<br><br>
+      · <strong>Agua estructurada</strong> — agua isotónica o cargada con intención y minerales que el cuerpo pueda reconocer como propia.<br><br>
+      · <strong>Equilibrio glandular</strong> — el menor estrés posible para que las glándulas suprarrenales y tiroides funcionen sin sobreexigencia.
+    </p>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Cómo sostener el amperaje</h3>
+    <p>
+      · <strong>Sueño reparador</strong> — el cuerpo se autosana durante el descanso profundo. Sin descanso, no hay regeneración.<br><br>
+      · <strong>Desintoxicación</strong> — eliminar metales pesados y toxinas que roban energía vital. Una opción estudiada: el tamarindo para la descalcificación de la glándula pineal.<br><br>
+      · <strong>Gestión del estrés</strong> — cada momento de relajación profunda estabiliza las ondas cerebrales y activa los estados en que el organismo se repara a sí mismo.
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Un cuerpo con voltaje alto y amperaje pleno no necesita buscar energía afuera. La genera, la irradia, y la sostiene."</p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Pausa para el grupo — trabajo en parejas</span>
+    <h3>"¿Cuál de las dos energías sentís que te falta más? ¿Física (voltaje) o vital-profunda (amperaje)? ¿Qué lo está drenando?"</h3>
+    <p>Compartan en parejas durante 4 minutos. No busquen soluciones todavía — primero nombren lo que está pasando.</p>
+  </div>
+</div>
+
+<!-- SECTION 4: EL SONIDO ANCESTRAL -->
+<div class="section" id="s4">
+  <span class="section-number">04</span>
+  <span class="section-tag">Herencia de frecuencia</span>
+  <h2 class="section-title">El sonido como<br><em>tecnología ancestral</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Lo que hoy llamamos bienestar, las civilizaciones antiguas lo llamaban <em>armonía de frecuencias</em>. Y la herramienta principal que usaban no era química ni mecánica — era el sonido. Esto no es metáfora: el sonido es vibración, y la vibración impacta directamente en la estructura celular.</p>
+
+  <div class="ancestral-row">
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Sumeria</span>
+      <p class="ancestral-text">Una lira de nueve cuerdas emitía frecuencias que impactaban en la estructura celular para mantenerla en orden.</p>
+    </div>
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Egipto</span>
+      <p class="ancestral-text">El sistro generaba vibración constante para proteger el cuerpo de frecuencias que lo pudieran desestabilizar.</p>
+    </div>
+    <div class="ancestral-pill">
+      <span class="ancestral-place">China antigua</span>
+      <p class="ancestral-text">Los cinco elementos conectados a notas específicas creaban medicina vibracional: micro y macrocosmos en resonancia.</p>
+    </div>
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Lemuria</span>
+      <p class="ancestral-text">Durante el gran diluvio, mantuvieron sonidos sagrados para que la transición de las almas fuera de luz, no de miedo.</p>
+    </div>
+  </div>
+
+  <p class="body-text">Estas tradiciones no eran misticismo ingenuo — eran una ciencia sónica. Comprendían que emitir un sonido armónico reorganiza las células, disuelve interferencias y crea un escudo de coherencia energética en el cuerpo.</p>
+
+  <div class="pull-quote">
+    <p>"Cuando emitimos un sonido armónico como el OM, creamos un escudo sónico. Se reorganizan todas nuestras células y se disuelve cualquier energía que intente interferir en el campo."</p>
+  </div>
+
+  <div class="highlight-box">
+    <h3>La práctica del OM — una herramienta concreta</h3>
+    <p>
+      Pon una mano en el pecho, sobre el esternón. Inhala profundo. Al exhalar, emite el sonido <strong>OM</strong> dejando que la M resuene largo.<br><br>
+      El objetivo no es sonar "bien" — es sentir que el tórax vibra. Ese campo toráxico que vibra es como un tambor ancestral interno. Cuando lo activás, estás haciendo lo mismo que los círculos sagrados de Lemuria o los músicos de Sumeria: usar tu propio cuerpo como instrumento de coherencia.<br><br>
+      Tres rondas son suficientes para notar un cambio en el estado del sistema nervioso.
+    </p>
+  </div>
+
+  <p class="body-text">No hace falta saber música. Cantar bajo la ducha, tararear sin letra, dejar que salgan sonidos que no tienen forma reconocible — todo eso activa el mismo mecanismo. La voz es la caja de resonancia que tenemos siempre disponible, que no ocupa lugar, y que no cuesta nada.</p>
+
+  <div class="question-box">
+    <span class="q-label">✦ Práctica grupal</span>
+    <h3>"Hagamos juntos tres rondas de OM. Mano en el pecho. Sin juzgar el sonido. Solo sintiendo que el cuerpo vibra."</h3>
+    <p>Al terminar, unos segundos de silencio. Luego, quien quiera, puede compartir en una sola oración qué notó.</p>
+  </div>
+</div>
+
+<!-- SECTION 5: HERRAMIENTAS -->
+<div class="section" id="s5">
+  <span class="section-number">05</span>
+  <span class="section-tag">El kit de soberanía</span>
+  <h2 class="section-title">Herramientas concretas<br><em>para la energía propia</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">La soberanía energética no es un estado que se alcanza una vez y se mantiene solo. Es el resultado de microacciones repetidas conscientemente. Estas son las más accesibles — ninguna cuesta dinero, todas están disponibles ahora mismo.</p>
+
+  <div class="levels-grid">
+    <div class="level-card">
+      <div class="level-num">☀</div>
+      <div class="level-title">La luz solar</div>
+      <p class="level-text">Los primeros 30 minutos de sol del día son los más potentes. La luz de esa hora interpenetra el cuerpo de manera diferente. Mirarlo sin protección en ese horario, o simplemente recibirlo en la piel con conciencia, es una recarga directa. Si en ese momento también estás descalzo sobre tierra, el efecto se multiplica.</p>
+    </div>
+    <div class="level-card">
+      <div class="level-num">⏱</div>
+      <div class="level-title">Los 5 minutos</div>
+      <p class="level-text">Cinco minutos diarios — antes de que todo se despierte o antes de dormir — sin celular, sin pantallas, sin noticias. Solo vos. Puede ser escuchar una música que amás, respirar, sentarte en silencio. No parece mucho, pero es el acto de elegirte a vos mismo todos los días. Eso, acumulado, es programarse desde adentro.</p>
+    </div>
+    <div class="level-card">
+      <div class="level-num">🌿</div>
+      <div class="level-title">El grounding</div>
+      <p class="level-text">Pies descalzos sobre tierra, pasto, arena o agua. El intercambio de electrones con el planeta equilibra el ciclo circadiano, estabiliza las glándulas y calma el sistema nervioso. No hace falta un bosque: un jardín, una plaza, la orilla del mar. Diez minutos conscientes ya generan un cambio medible en el estado interno.</p>
+    </div>
+  </div>
+
+  <div class="levels-grid">
+    <div class="level-card">
+      <div class="level-num">🐾</div>
+      <div class="level-title">Las mascotas</div>
+      <p class="level-text">No son solo compañía — son <strong>tutores de frecuencia</strong>. El ronroneo de un gato, el ritmo cardíaco de un perro, los sonidos guturales del reino animal en general han sostenido la malla frecuencial del planeta durante siglos de desconexión humana. Cuando nos vinculamos con ellos conscientemente, co-regulamos nuestra frecuencia con la suya.</p>
+    </div>
+    <div class="level-card">
+      <div class="level-num">💧</div>
+      <div class="level-title">El agua intencionada</div>
+      <p class="level-text">El agua es conductora de información. Hablarle, cargarla con intención, tomarla conscientemente no es solo un acto simbólico — es reconocer que el 70% de nuestro cuerpo es ese mismo elemento, y que lo que le decimos al agua que bebemos, en algún sentido, nos lo decimos a nosotros mismos.</p>
+    </div>
+    <div class="level-card">
+      <div class="level-num">⚡</div>
+      <div class="level-title">El cobre y el zinc</div>
+      <p class="level-text">Usar una pulsera de cobre y una de zinc en distintas muñecas genera un circuito bioeléctrico que ayuda al cambio de estructura celular. El cobre solo también es valioso: ayuda a la desintoxicación y a mejorar la conductividad eléctrica del cuerpo. Verificar que sea 100% cobre pasándolo por un imán — si no se pega, es auténtico.</p>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>"No necesitamos nada nuevo. Solo necesitamos permitir que el cuerpo regrese a su sintonía primordial."</p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Compartir en el grupo</span>
+    <h3>"¿Cuál de estas herramientas ya usás? ¿Cuál te gustaría incorporar? ¿Qué otras prácticas de soberanía energética traés vos?"</h3>
+    <p>Abrir la ronda. Cada persona puede compartir una sola cosa — la que más resuene en este momento.</p>
+  </div>
+</div>
+
+<!-- SECTION 6: SOBERANÍA COTIDIANA -->
+<div class="section" id="s6">
+  <span class="section-number">06</span>
+  <span class="section-tag">La dimensión práctica</span>
+  <h2 class="section-title">La soberanía no es<br><em>un evento — es una elección</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Una de las ideas que más limitan la transformación es pensar que ser soberano energéticamente requiere salir del mundo cotidiano. Renunciar al trabajo, alejarse de las estructuras, vivir en un entorno completamente diferente. No es así.</p>
+
+  <p class="body-text">Una persona que trabaja en una oficina gestionando trámites burocráticos puede ser, al mismo tiempo, un <strong>servidor de la luz</strong>. Si con ese trabajo le quita estrés emocional a alguien que no puede avanzar, eso es un acto de transmutación. La soberanía no está en <em>qué</em> hacés — está en <em>cómo</em> te presentás ante lo que hacés.</p>
+
+  <div class="highlight-box">
+    <h3>La pregunta que cambia todo</h3>
+    <p>
+      Ante cualquier cosa que te pase — en el trabajo, en las relaciones, en el cuerpo — hay dos posiciones posibles:<br><br>
+      <strong>Víctima del afuera:</strong> "Esto me pasa <em>a mí</em>. El sistema, la otra persona, las circunstancias."<br><br>
+      <strong>Soberanía interna:</strong> "¿Qué elegí — consciente o inconscientemente — que trajo esto? ¿Y qué elijo <em>ahora</em> con lo que está pasando?"<br><br>
+      No es culparse. Es recuperar la agencia. La diferencia entre una pregunta y la otra es la diferencia entre estar en modo reactivo o en modo creador.
+    </p>
+  </div>
+
+  <p class="body-text">La soberanía también tiene que ver con el dinero y la abundancia — pero no como algo que se busca afuera. El dinero sigue a quien valora su propia energía. Cuando empezamos a cuidarnos — lo que comemos, lo que escuchamos, a quién le damos nuestro tiempo — eso se traduce en una relación diferente con todo tipo de abundancia: económica, de relaciones, de salud.</p>
+
+  <div class="pull-quote">
+    <p>"Recuperar nuestro voltaje y nuestra soberanía energética es un acto de amor propio. Es el camino al corazón para nosotros mismos."</p>
+  </div>
+
+  <p class="body-text">Los <em>seres vitamina</em> y los <em>seres fuga</em> — esa distinción simple es una brújula poderosa. Después de estar con cierta persona, ¿tenés más energía o menos? Eso es información. No para juzgar, sino para elegir cómo y cuánto te exponés a cada tipo de encuentro.</p>
+
+  <div class="question-box">
+    <span class="q-label">✦ Compromiso personal — cierre del grupo</span>
+    <h3>"¿Cuál es una microacción concreta de soberanía energética que vas a hacer esta semana? Una sola. Pequeña. Posible."</h3>
+    <p>Que cada persona lo nombre en voz alta. Los actos que nombramos en comunidad tienen más posibilidades de ocurrir — no por magia, sino porque el testigo sostenido crea responsabilidad amorosa.</p>
+  </div>
+</div>
+
+<!-- SECTION 7: CIERRE -->
+<div class="section" id="s7">
+  <span class="section-number">07</span>
+  <span class="section-tag">Para llevar</span>
+  <h2 class="section-title">Lo que queremos<br><em>que se quede</em></h2>
+  <div class="divider"></div>
+
+  <div class="closing">
+    <h2 class="closing-title">Somos una<br>biotecnología<br><em>divina.</em><br>Ya todo está adentro.</h2>
+    <div class="divider" style="margin: 32px auto; width:40px;"></div>
+    <p>No necesitamos nada nuevo. No necesitamos naves, ni líderes externos, ni sistemas que nos digan cómo despertar.</p>
+    <p>Necesitamos recordar. Y para recordar, necesitamos condiciones: un cuerpo alcalino, una mente que se da cinco minutos, una voz que vibra, pies que tocan la tierra.</p>
+    <p>La transición del carbono al silicio no es algo que le pase al cuerpo mientras nosotros esperamos. Es algo que facilitamos, a diario, con pequeñas elecciones conscientes que acumuladas en el tiempo transforman la materia.</p>
+    <p style="margin-top: 32px; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--blue);">Primero transformamos nosotros. Luego, desde esa transformación, transformamos el mundo.</p>
+    <div class="divider" style="margin: 40px auto; width:40px;"></div>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 24px); font-style: italic; color: var(--mid); line-height: 1.6;">"El silicio almacena información.<br>Y esa información es la que nos ayuda<br>a recordar quiénes somos."</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="body-text" style="text-align:center; font-size:14px; color: var(--soft);">Ideas y marcos que alimentaron esta charla</p>
+  <div class="refs">
+    <span class="ref-pill">Masaru Emoto — La memoria del agua</span>
+    <span class="ref-pill">Teoría Polivagal — Stephen Porges</span>
+    <span class="ref-pill">Respiración pránica — tradición yóguica</span>
+    <span class="ref-pill">Alena Kafur — Desde que empecé a hablar con mi gato</span>
+    <span class="ref-pill">Actos psicomágicos — Alejandro Jodorowsky</span>
+  </div>
+
+  <div style="margin-top: 60px; padding-top: 32px; padding-bottom: 100px; border-top: 1px solid var(--crystal); text-align: center;">
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--soft); margin-bottom: 10px;">Una charla de</p>
+    <a href="https://github.com/PaulinaCollective" target="_blank" style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: var(--blue); text-decoration: none; letter-spacing: 1px;" onmouseover="this.style.color='var(--deep)'" onmouseout="this.style.color='var(--blue)'">Paulina</a>
+    <p style="margin-top: 12px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft);">Más charlas y recursos</p>
+    <a href="https://github.com/PaulinaCollective" target="_blank" style="display: inline-block; margin-top: 8px; font-size: 13px; color: var(--blue); text-decoration: none; border-bottom: 1px solid var(--blue-pale); padding-bottom: 2px; letter-spacing: 1px;" onmouseover="this.style.color='var(--deep)'" onmouseout="this.style.color='var(--blue)'">github.com/PaulinaCollective</a>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar" id="navBar" style="display:none;">
+  <button class="nav-prev" id="btnPrev" onclick="prevSection()">← Anterior</button>
+  <div class="nav-indicator" id="navIndicator"></div>
+  <button class="nav-next" id="btnNext" onclick="nextSection()">Siguiente →</button>
+</div>
+
+<script>
+  const totalSections = 7;
+  let current = 0;
+
+  function updateNav() {
+    const navBar = document.getElementById('navBar');
+    const navIndicator = document.getElementById('navIndicator');
+    navBar.style.display = current === 0 ? 'none' : 'flex';
+    navIndicator.innerHTML = '';
+    for (let i = 1; i <= totalSections; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === current ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      navIndicator.appendChild(dot);
+    }
+    document.getElementById('btnPrev').disabled = current <= 1;
+    document.getElementById('btnNext').disabled = current >= totalSections;
+  }
+
+  function showSection(n) {
+    document.getElementById('cover').style.display = n === 0 ? 'flex' : 'none';
+    for (let i = 1; i <= totalSections; i++) {
+      const el = document.getElementById('s' + i);
+      if (el) { el.style.display = 'none'; el.classList.remove('visible'); }
+    }
+    if (n > 0) {
+      const el = document.getElementById('s' + n);
+      if (el) { el.style.display = 'block'; el.classList.add('visible'); }
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function goTo(n) {
+    current = n;
+    showSection(n);
+    updateNav();
+  }
+
+  function nextSection() {
+    if (current < totalSections) goTo(current + 1);
+  }
+
+  function prevSection() {
+    if (current > 1) goTo(current - 1);
+    else { current = 0; showSection(0); updateNav(); }
+  }
+
+  showSection(0);
+  updateNav();
+</script>
+</body>
+</html>
