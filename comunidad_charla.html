@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comunidad y Resonancia — El Poder del Círculo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf6f8;
+    --cold-white: #fefcfd;
+    --deep: #2d1a22;
+    --mid: #5c3347;
+    --soft: #9a6478;
+    --slate: #c4909f;
+    --rose: #c9847a;
+    --rose-light: #e8a89e;
+    --rose-pale: #f5ddd9;
+    --mauve: #b89ab0;
+    --mauve-light: #d4bcd0;
+    --mauve-pale: #eedde8;
+    --gold: #c9a96e;
+    --gold-pale: #f0e4cc;
+    --crystal: #faedf2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cold-white);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,154,176,0.2) 0%, transparent 70%);
+    animation: breathe 8s ease-in-out infinite;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; right: -150px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,132,122,0.15) 0%, transparent 70%);
+    animation: breathe 11s ease-in-out infinite reverse;
+  }
+
+  .cover-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(184,154,176,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(184,154,176,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Círculo animado en portada */
+  .cover-circle {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,154,176,0.15);
+    animation: expand 6s ease-in-out infinite;
+  }
+
+  .cover-circle:nth-child(2) { width: 550px; height: 550px; animation-delay: 1s; }
+  .cover-circle:nth-child(3) { width: 700px; height: 700px; animation-delay: 2s; }
+
+  @keyframes expand {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+
+  .cover-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(50px, 9vw, 110px);
+    font-weight: 300;
+    color: var(--cold-white);
+    line-height: 0.92;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title em { font-style: italic; color: var(--mauve-light); }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2.2vw, 21px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--slate);
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-btn {
+    padding: 10px 18px;
+    border: 1px solid rgba(184,154,176,0.3);
+    background: transparent;
+    color: var(--mauve-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .nav-btn:hover {
+    background: var(--mauve);
+    border-color: var(--mauve);
+    color: white;
+  }
+
+  /* SECTIONS */
+  .section {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: var(--crystal);
+    line-height: 1;
+    margin-bottom: -20px;
+    display: block;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 40px;
+  }
+
+  .section-title em { font-style: italic; color: var(--mauve); }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--mauve-pale);
+    margin-bottom: 40px;
+  }
+
+  .body-text {
+    font-size: clamp(16px, 1.8vw, 18px);
+    line-height: 1.85;
+    color: var(--mid);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    border-left: 3px solid var(--mauve);
+    padding: 24px 32px;
+    margin: 40px 0;
+    background: var(--crystal);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--deep);
+    line-height: 1.5;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--bg);
+    border: 1px solid var(--mauve-pale);
+    border-radius: 4px;
+    padding: 32px 36px;
+    margin: 36px 0;
+  }
+
+  .highlight-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--mauve);
+    margin-bottom: 16px;
+  }
+
+  .highlight-box p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* QUESTION BOX */
+  .question-box {
+    background: var(--deep);
+    border-radius: 4px;
+    padding: 36px 40px;
+    margin: 40px 0;
+  }
+
+  .q-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .question-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cold-white);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .question-box p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+
+  /* CONCEPT GRID */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 600px) { .concept-grid { grid-template-columns: 1fr; } }
+
+  .concept-card {
+    background: var(--cold-white);
+    border: 1px solid var(--mauve-pale);
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--mauve);
+  }
+
+  .concept-card.rose::before { background: var(--rose); }
+  .concept-card.gold::before { background: var(--gold); }
+
+  .concept-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--mauve-pale);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .concept-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 12px;
+  }
+
+  .concept-card.rose .concept-title { color: var(--rose); }
+  .concept-card.gold .concept-title { color: var(--gold); }
+
+  .concept-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  /* ANCESTRAL ROW */
+  .ancestral-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+
+  .ancestral-pill {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    border: 1px solid var(--mauve-pale);
+    border-radius: 4px;
+    background: var(--cold-white);
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .ancestral-place {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .ancestral-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* LEVELS GRID */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 700px) { .levels-grid { grid-template-columns: 1fr; } }
+
+  .level-card {
+    background: var(--bg);
+    border-radius: 4px;
+    padding: 28px 24px;
+    border-bottom: 3px solid var(--mauve-pale);
+    transition: border-color 0.3s;
+  }
+
+  .level-card:hover { border-color: var(--mauve); }
+
+  .level-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .level-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 12px;
+  }
+
+  .level-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  /* TRANSFORMACION GRID */
+  .transform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 600px) { .transform-grid { grid-template-columns: 1fr; } }
+
+  .transform-card {
+    border-radius: 4px;
+    padding: 32px 28px;
+    position: relative;
+  }
+
+  .transform-card.personal {
+    background: var(--crystal);
+    border: 1px solid var(--rose-pale);
+  }
+
+  .transform-card.colectivo {
+    background: var(--mauve-pale);
+    border: 1px solid var(--mauve-light);
+  }
+
+  .transform-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .transform-card.personal .transform-label { color: var(--rose); }
+  .transform-card.colectivo .transform-label { color: var(--mauve); }
+
+  .transform-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--deep);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .transform-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* CLOSING */
+  .closing {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .closing-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--deep);
+    margin-bottom: 40px;
+  }
+
+  .closing-title em { font-style: italic; color: var(--mauve); }
+
+  .closing p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.85;
+    color: var(--mid);
+    max-width: 560px;
+    margin: 0 auto 20px;
+  }
+
+  .refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .ref-pill {
+    font-size: 12px;
+    color: var(--mauve);
+    background: var(--crystal);
+    border: 1px solid var(--mauve-pale);
+    border-radius: 2px;
+    padding: 6px 14px;
+  }
+
+  /* NAV BAR */
+  .nav-bar {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--deep);
+    border: 1px solid rgba(184,154,176,0.2);
+    border-radius: 40px;
+    padding: 12px 24px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(45,26,34,0.15);
+  }
+
+  .nav-prev, .nav-next {
+    background: none;
+    border: none;
+    color: var(--mauve-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-prev:hover, .nav-next:hover { color: white; }
+  .nav-prev:disabled, .nav-next:disabled { color: var(--soft); cursor: default; }
+
+  .nav-indicator { display: flex; gap: 6px; align-items: center; }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--soft);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-dot.active {
+    background: var(--mauve-light);
+    width: 20px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-circle"></div>
+  <div class="cover-circle"></div>
+  <div class="cover-circle"></div>
+  <span class="cover-eyebrow">Charlando · Aprendiendo Charlando</span>
+  <h1 class="cover-title">Comunidad<br>y <em>Resonancia</em></h1>
+  <p class="cover-subtitle">El poder del círculo — por qué reunirse con intención transforma todo</p>
+  <div class="cover-nav">
+    <button class="nav-btn" onclick="goTo(1)">01 · Por qué el círculo</button>
+    <button class="nav-btn" onclick="goTo(2)">02 · La ciencia de la resonancia</button>
+    <button class="nav-btn" onclick="goTo(3)">03 · La herencia ancestral</button>
+    <button class="nav-btn" onclick="goTo(4)">04 · Crear un círculo sagrado</button>
+    <button class="nav-btn" onclick="goTo(5)">05 · Los nodos</button>
+    <button class="nav-btn" onclick="goTo(6)">06 · Cierre</button>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section" id="s1">
+  <span class="section-number">01</span>
+  <span class="section-tag">El origen de todo</span>
+  <h2 class="section-title">Por qué<br><em>el círculo</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Desde los tiempos más antiguos, los seres humanos se reunieron en círculo. No en fila, no en pirámide, no en filas de butacas mirando a un frente. En círculo — donde todos se ven, donde no hay adelante ni atrás, donde cada uno ocupa un lugar igualmente válido.</p>
+
+  <p class="body-text">Esa forma no fue casual. El círculo es la forma más perfecta de la naturaleza — la del sol, la luna, los ojos, las células, los nidos. Es la geometría de la unidad. Y cuando los seres humanos se reúnen en esa forma con intención, algo se activa que no ocurre de ninguna otra manera.</p>
+
+  <div class="pull-quote">
+    <p>"El círculo representa en todas las culturas la unidad, la totalidad y la armonía en la diversidad. No hay cabeza ni cola — hay presencia."</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">○</div>
+      <div class="concept-title">Sin jerarquías</div>
+      <p class="concept-text">En el círculo no hay maestro y alumno, no hay quien sabe y quien no sabe. Hay experiencias diferentes que se encuentran. Cada voz tiene el mismo peso. Eso solo ya es revolucionario en una cultura que organiza todo de manera vertical.</p>
+    </div>
+    <div class="concept-card rose">
+      <div class="concept-num">◎</div>
+      <div class="concept-title">Con intención</div>
+      <p class="concept-text">La diferencia entre una reunión y un círculo sagrado es la intención. Cuando un grupo se reúne con un propósito consciente — sanar, recordar, aprender, crear — el campo que se genera es cualitativamente diferente. La intención es la que convoca la energía.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Lo que el círculo activa que nada más puede</h3>
+    <p>
+      · <strong>La escucha profunda</strong> — cuando todos se ven, se escucha diferente. No hay distracciones de jerarquía.<br><br>
+      · <strong>La vulnerabilidad segura</strong> — el círculo crea un contenedor donde es posible mostrarse sin miedo al juicio.<br><br>
+      · <strong>La inteligencia colectiva</strong> — lo que emerge en un círculo nunca podría haber surgido de ninguno de sus miembros por separado.<br><br>
+      · <strong>La sanación por resonancia</strong> — cuando una persona sana en el círculo, todos sanan un poco. El campo es compartido.
+    </p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Pausa para el grupo</span>
+    <h3>"¿Cuándo fue la última vez que te sentiste realmente escuchado/a en una reunión? ¿Qué lo hizo diferente?"</h3>
+    <p>Compartir en ronda. Una sola oración cada uno — lo primero que venga.</p>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+  <span class="section-number">02</span>
+  <span class="section-tag">Lo que la ciencia confirma</span>
+  <h2 class="section-title">La ciencia de la<br><em>resonancia colectiva</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">La resonancia no es solo una metáfora espiritual — es un fenómeno físico medible. Cuando dos o más sistemas vibran cerca uno del otro, tienden a sincronizarse. Esto ocurre con péndulos, con corazones, con cerebros, con campos electromagnéticos humanos.</p>
+
+  <p class="body-text">Cuando un grupo se reúne con intención, los campos electromagnéticos de cada persona — que el corazón genera y que se extienden metros fuera del cuerpo — empiezan a interactuar. Si la intención es coherente, esos campos se sincronizan. Lo que se genera es un campo colectivo que es más que la suma de sus partes.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">♡</div>
+      <div class="concept-title">El campo del corazón</div>
+      <p class="concept-text">El corazón genera el campo electromagnético más potente del cuerpo — unas 5.000 veces más fuerte que el del cerebro. Ese campo se extiende entre 3 y 5 metros alrededor del cuerpo y es detectado por otras personas. En un círculo, los campos cardíacos de todos los presentes se superponen y crean un campo colectivo.</p>
+    </div>
+    <div class="concept-card rose">
+      <div class="concept-num">≋</div>
+      <div class="concept-title">El efecto Maharishi</div>
+      <p class="concept-text">Estudios con grupos de meditadores mostraron que cuando el 1% de una población medita con intención de paz, los índices de violencia y crimen de esa comunidad bajan estadísticamente. No hace falta que todos lo hagan — basta con una masa crítica. El campo colectivo influye sobre el campo individual, y viceversa.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Una persona en alta frecuencia en el grupo</h3>
+    <p>
+      Cuando una persona llega al círculo en coherencia — con el corazón abierto, el sistema nervioso calmado, la intención clara — su campo influye sobre el de los demás. No de manera impositiva, sino por resonancia: como un diapasón que hace vibrar a los otros.<br><br>
+      Esto tiene una consecuencia importante: <strong>cómo llegamos al círculo importa tanto como lo que hacemos en él</strong>. Los 5 minutos de preparación antes de entrar — respirar, soltar el día, establecer una intención — no son un lujo. Son la base del campo que vamos a crear juntos.
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"No necesitamos que todos estén en alta frecuencia para que el círculo funcione. Necesitamos que haya suficientes corazones coherentes para que el campo se sostenga."</p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Para el grupo</span>
+    <h3>"¿Alguna vez entraste a un lugar o reunión y sentiste el 'ambiente' antes de que nadie dijera nada? ¿Qué era lo que estabas percibiendo?"</h3>
+    <p>Eso que percibiste era el campo colectivo. Nombrarlo es empezar a trabajar con él conscientemente.</p>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section" id="s3">
+  <span class="section-number">03</span>
+  <span class="section-tag">Lo que siempre supieron</span>
+  <h2 class="section-title">La herencia<br><em>ancestral</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">El círculo sagrado no es una invención nueva age. Es la tecnología espiritual más antigua de la humanidad — usada en todos los continentes, en todas las épocas, por pueblos que no tuvieron contacto entre sí. Que todos llegaran a la misma forma dice algo sobre su efectividad.</p>
+
+  <div class="ancestral-row">
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Pueblos originarios</span>
+      <p class="ancestral-text">La rueda de medicina sioux es uno de los sistemas más completos de círculo sagrado. Cuatro direcciones, cuatro elementos, cuatro aspectos del ser. El círculo como mapa del cosmos y del alma.</p>
+    </div>
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Lemuria</span>
+      <p class="ancestral-text">Los lemurianos se reunían en círculo para sostener frecuencias colectivas. Durante el gran diluvio, mantuvieron el canto sagrado en círculo para que la transición de las almas fuera de luz y no de miedo.</p>
+    </div>
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Celtas</span>
+      <p class="ancestral-text">Stonehenge y los círculos de piedra europeos eran espacios de reunión sagrada. La forma circular amplificaba las frecuencias y creaba un vórtice de energía que conectaba cielo y tierra.</p>
+    </div>
+    <div class="ancestral-pill">
+      <span class="ancestral-place">Tradición aborigen</span>
+      <p class="ancestral-text">Los círculos de fuego australianos eran espacios donde se transmitía el conocimiento del Dreamtime — la memoria colectiva de la humanidad. El fuego en el centro como símbolo de la verdad compartida.</p>
+    </div>
+  </div>
+
+  <p class="body-text">Lo que todas estas tradiciones sabían — y que la ciencia moderna está redescubriendo — es que hay algo que ocurre en el círculo que no puede ocurrir de otra manera. Una inteligencia que emerge cuando los seres humanos se reúnen en igualdad, con intención, alrededor de algo sagrado.</p>
+
+  <div class="highlight-box">
+    <h3>La Era de Acuario y el círculo</h3>
+    <p>
+      La Era de Acuario que estamos inaugurando tiene una característica central: <strong>el conocimiento se comparte, no se guarda</strong>. Ya no hay jerarquías espirituales rígidas — hay redes horizontales de personas que se sostienen mutuamente.<br><br>
+      El círculo es la forma natural de la Era de Acuario. No hay gurú al frente — hay facilitadores que sostienen el espacio para que la sabiduría emerja del grupo. Cada uno es maestro de su propia experiencia. Cada uno tiene algo que el grupo necesita escuchar.
+    </p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Reflexión</span>
+    <h3>"¿Con qué tradición ancestral del círculo resonás más? ¿Hay alguna práctica de tu cultura o familia que tenga esa misma esencia de reunión sagrada?"</h3>
+    <p>A veces la memoria ancestral está más cerca de lo que creemos — en el mate en ronda, en la sobremesa, en el fogón.</p>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section" id="s4">
+  <span class="section-number">04</span>
+  <span class="section-tag">La práctica concreta</span>
+  <h2 class="section-title">Crear un círculo sagrado<br><em>y lo que transforma</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Un círculo sagrado no requiere rituales complejos ni materiales especiales. Requiere intención, presencia y un mínimo de estructura que contenga el espacio. Lo que lo hace sagrado no es la forma — es la calidad de atención que cada uno trae.</p>
+
+  <div class="levels-grid">
+    <div class="level-card">
+      <span class="level-icon">🕯</span>
+      <div class="level-title">El espacio</div>
+      <p class="level-text">Preparar el lugar antes de que lleguen. Sahumar, poner una vela o algo en el centro que represente lo sagrado para el grupo. El espacio físico preparado con intención ya genera un campo diferente antes de que nadie llegue. No importa si es una casa, un parque o una pantalla — la intención lo transforma.</p>
+    </div>
+    <div class="level-card">
+      <span class="level-icon">🌀</span>
+      <div class="level-title">La apertura</div>
+      <p class="level-text">Abrir el círculo conscientemente — con una respiración compartida, un OM, un momento de silencio, o una pregunta que oriente la intención del encuentro. Ese momento de apertura le dice al sistema nervioso de todos: "Esto es diferente. Esto es sagrado." Es la transición del modo automático al modo presencia.</p>
+    </div>
+    <div class="level-card">
+      <span class="level-icon">🗣</span>
+      <div class="level-title">La palabra</div>
+      <p class="level-text">En el círculo se habla desde la experiencia propia, no desde la teoría. "A mí me pasó", "yo siento", "en mi experiencia" — no "la gente", "siempre", "todos". La palabra en primera persona abre el corazón. Y el que habla desde el corazón invita al resto a hacer lo mismo.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>El cierre — tan importante como la apertura</h3>
+    <p>
+      Cerrar el círculo conscientemente es tan importante como abrirlo. Sin cierre, la energía queda flotando. El cierre puede ser tan simple como que cada uno diga una palabra de lo que se lleva, o un agradecimiento en silencio, o volver a respirar juntos.<br><br>
+      El cierre le dice al campo: "Lo que se creó aquí queda aquí, y también se lleva en el corazón de cada uno."
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Lo que hace sagrado a un círculo no son los rituales. Es la calidad de presencia que cada uno trae y la intención de estar ahí para algo más grande que uno mismo."</p>
+  </div>
+
+  <p class="body-text" style="margin-top: 40px; font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--mauve);">¿Qué transforma el círculo?</p>
+
+  <div class="transform-grid">
+    <div class="transform-card personal">
+      <span class="transform-label">✦ Transformación personal</span>
+      <h3>"Me siento menos solo/a con lo que me pasa"</h3>
+      <p>
+        · <strong>Liberación emocional</strong> — nombrar algo en presencia de otros lo transforma. Lo que se guarda en silencio pesa; lo que se comparte en un espacio seguro sana.<br><br>
+        · <strong>Mayor autoconciencia</strong> — escuchar la experiencia del otro es un espejo. Vemos partes de nosotros mismos que solos no podríamos ver.<br><br>
+        · <strong>Fortaleza interior</strong> — saber que no estamos solos en el camino nos da energía para seguir. El círculo recarga de una manera que la soledad no puede.<br><br>
+        · <strong>Claridad de propósito</strong> — muchas personas encuentran en el círculo la claridad sobre su misión que no lograban encontrar solos.
+      </p>
+    </div>
+    <div class="transform-card colectivo">
+      <span class="transform-label">✦ Transformación colectiva</span>
+      <h3>"Juntos creamos algo que ninguno podría crear solo"</h3>
+      <p>
+        · <strong>Inteligencia colectiva</strong> — las soluciones que emergen en un círculo bien sostenido superan lo que cualquiera hubiera pensado individualmente.<br><br>
+        · <strong>Red de sostén</strong> — el círculo crea vínculos reales. Personas que se acompañan más allá del encuentro, que se sostienen en momentos difíciles.<br><br>
+        · <strong>Campo de alta frecuencia sostenido</strong> — un círculo que se reúne regularmente va elevando la frecuencia base del grupo. Con el tiempo, ese campo influye en la comunidad más amplia.<br><br>
+        · <strong>Transmisión de conciencia</strong> — cada persona que sale de un círculo transformada lleva esa transformación a su familia, su trabajo, su barrio. El cambio se expande en ondas.
+      </p>
+    </div>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Práctica grupal</span>
+    <h3>"Hagamos un mini círculo ahora mismo. Cada uno en una oración: ¿qué traje hoy que necesita ser escuchado?"</h3>
+    <p>Sin comentarios, sin consejos. Solo escuchar. Dejar que cada voz ocupe su espacio en el círculo.</p>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section" id="s5">
+  <span class="section-number">05</span>
+  <span class="section-tag">La red que se teje</span>
+  <h2 class="section-title">Los nodos —<br><em>proyectos con alma</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Un nodo no es solo un grupo que se reúne — es un <strong>proyecto con propósito</strong>. Un espacio que tiene una misión específica, una energía propia, y una responsabilidad: mantenerse en alta vibración para sostener el campo colectivo de la humanidad.</p>
+
+  <p class="body-text">Cada nodo es como un círculo sagrado que se sostiene en el tiempo — con una dirección, una intención de servicio, y personas que lo cuidan. Cuando hay suficientes nodos encendidos y en alta frecuencia en el mundo, se forma una red que influye sobre el campo colectivo. No desde la imposición — desde la resonancia.</p>
+
+  <div class="pull-quote">
+    <p>"Un nodo no es una reunión. Es un proyecto vivo que tiene que ser cuidado, alimentado y mantenido en alta vibración para que pueda cumplir su propósito en la red."</p>
+  </div>
+
+  <div class="highlight-box">
+    <h3>¿Qué hace a un nodo un nodo?</h3>
+    <p>
+      · <strong>Una misión clara</strong> — ¿para qué existe este proyecto? ¿Qué quiere crear en el mundo? Sin misión clara, la energía se dispersa.<br><br>
+      · <strong>Alta vibración sostenida</strong> — el nodo tiene que cuidar activamente su frecuencia. No basta con tener buenas intenciones una vez — hay que sostener el campo. Eso requiere práctica, revisión, y honestidad sobre cuándo la energía baja.<br><br>
+      · <strong>Círculos sagrados internos</strong> — dentro de cada nodo, los círculos son la herramienta. Es donde se procesa, se sana, se alinea y se recarga la energía del proyecto.<br><br>
+      · <strong>Conexión con la red</strong> — un nodo aislado tiene límites. Un nodo conectado con otros nodos multiplica su campo. La red no requiere que todos se conozcan — requiere que todos sostengan la misma frecuencia de amor y servicio.
+    </p>
+  </div>
+
+  <div class="highlight-box">
+    <h3>La triada — la unidad mínima sagrada</h3>
+    <p>
+      La unidad mínima para sostener un nodo o un círculo es la <strong>triada</strong> — tres personas con una intención compartida. No es un número aleatorio:<br><br>
+      El triángulo es la forma geométrica más estable que existe. Tres puntos crean un campo que ninguno de los dos podría sostener. Hay una razón por la que las tradiciones sagradas de todo el mundo trabajan con tríadas — el padre, el hijo y el espíritu; los tres reinos; las tres llamas del corazón.<br><br>
+      En una triada, si uno baja la vibración, los otros dos lo sostienen. Si uno no puede estar, los otros dos mantienen el campo. Es resiliencia energética — el proyecto no depende de una sola persona ni de una sola relación.<br><br>
+      <strong>Con una triada es suficiente para empezar un nodo.</strong> A partir de ahí, el campo crece solo — atrae lo que necesita cuando la intención es clara y la vibración se sostiene.
+    </p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">△</div>
+      <div class="concept-title">Nodo presencial</div>
+      <p class="concept-text">El más potente — los campos electromagnéticos de los cuerpos se superponen físicamente. Los círculos sagrados dentro del nodo presencial tienen una profundidad que la pantalla no puede replicar. La presencia corporal, el contacto visual, el espacio físico compartido amplifican la resonancia y aceleran la transformación.</p>
+    </div>
+    <div class="concept-card rose">
+      <div class="concept-num">◈</div>
+      <div class="concept-title">Nodo virtual</div>
+      <p class="concept-text">No menos válido — la intención atraviesa la pantalla. Nodos de todo el mundo sostienen proyectos y círculos sagrados online generando campos reales. La clave es la misma: intención clara, apertura consciente, alta vibración sostenida. La tecnología es solo el canal — el campo lo crean las personas.</p>
+    </div>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Para el grupo</span>
+    <h3>"¿Qué proyecto — qué nodo — sentís que está pidiendo nacer a través tuyo? ¿Y quiénes serían las otras dos personas de tu triada?"</h3>
+    <p>No es una obligación — es una invitación a escuchar qué está queriendo emerger. A veces el nodo ya existe en potencia, solo esperando que alguien lo nombre.</p>
+  </div>
+</div>
+
+<!-- SECTION 6: CIERRE -->
+<div class="section" id="s6">
+  <span class="section-number">06</span>
+  <span class="section-tag">Para llevar</span>
+  <h2 class="section-title">Lo que queremos<br><em>que se quede</em></h2>
+  <div class="divider"></div>
+
+  <div class="closing">
+    <h2 class="closing-title">Solos sanamos.<br><em>Juntos</em><br>transformamos.</h2>
+    <div class="divider" style="margin: 32px auto; width:40px;"></div>
+    <p>El círculo no es un evento. Es una práctica. Un espacio que se crea, se sostiene y se cuida. Que se convierte con el tiempo en un hogar energético para todos los que lo habitan.</p>
+    <p>En un mundo que nos entrena para la individualidad y la competencia, reunirse en círculo con intención es un acto revolucionario. Es elegir la conexión sobre el aislamiento, la escucha sobre el ruido, la presencia sobre la distracción.</p>
+    <p>Y es también, como todo lo que hemos venido explorando, un acto de soberanía. Porque cuando nos reunimos en igualdad para recordar juntos quiénes somos, no necesitamos que nadie de afuera nos lo diga.</p>
+    <p style="margin-top: 32px; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--mauve);">El círculo existe desde siempre.<br>Solo estamos recordando cómo usarlo.</p>
+    <div class="divider" style="margin: 40px auto; width:40px;"></div>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 24px); font-style: italic; color: var(--mid); line-height: 1.6;">"No hace falta un gran número.<br>Hace falta una gran intención.<br>Y tres personas dispuestas a sostenerla."</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="body-text" style="text-align:center; font-size:14px; color: var(--soft);">Referencias que alimentaron esta charla</p>
+  <div class="refs">
+    <span class="ref-pill">HeartMath Institute — campo electromagnético del corazón</span>
+    <span class="ref-pill">Efecto Maharishi — meditación y coherencia colectiva</span>
+    <span class="ref-pill">Rueda de medicina — tradición sioux</span>
+    <span class="ref-pill">Parker J. Palmer — El coraje de enseñar</span>
+    <span class="ref-pill">Freddy Silva — espacios sagrados y resonancia</span>
+  </div>
+
+  <div style="margin-top: 60px; padding-top: 32px; padding-bottom: 100px; border-top: 1px solid var(--crystal); text-align: center;">
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--soft); margin-bottom: 10px;">Una charla de</p>
+    <a href="https://paulinacollective.github.io/PaulinaCollective/" target="_blank" style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: var(--mauve); text-decoration: none; letter-spacing: 1px;" onmouseover="this.style.color='var(--deep)'" onmouseout="this.style.color='var(--mauve)'">Paulina</a>
+    <p style="margin-top: 12px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft);">Más charlas</p>
+    <a href="https://paulinacollective.github.io/charlas" target="_blank" style="display: inline-block; margin-top: 8px; font-size: 13px; color: var(--mauve); text-decoration: none; border-bottom: 1px solid var(--mauve-pale); padding-bottom: 2px; letter-spacing: 1px;" onmouseover="this.style.color='var(--deep)'" onmouseout="this.style.color='var(--mauve)'">paulinacollective.github.io/charlas</a>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar" id="navBar" style="display:none;">
+  <button class="nav-prev" id="btnPrev" onclick="prevSection()">← Anterior</button>
+  <div class="nav-indicator" id="navIndicator"></div>
+  <button class="nav-next" id="btnNext" onclick="nextSection()">Siguiente →</button>
+</div>
+
+<script>
+  const totalSections = 6;
+  let current = 0;
+
+  function updateNav() {
+    const navBar = document.getElementById('navBar');
+    const navIndicator = document.getElementById('navIndicator');
+    navBar.style.display = current === 0 ? 'none' : 'flex';
+    navIndicator.innerHTML = '';
+    for (let i = 1; i <= totalSections; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === current ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      navIndicator.appendChild(dot);
+    }
+    document.getElementById('btnPrev').disabled = current <= 1;
+    document.getElementById('btnNext').disabled = current >= totalSections;
+  }
+
+  function showSection(n) {
+    document.getElementById('cover').style.display = n === 0 ? 'flex' : 'none';
+    for (let i = 1; i <= totalSections; i++) {
+      const el = document.getElementById('s' + i);
+      if (el) { el.style.display = 'none'; el.classList.remove('visible'); }
+    }
+    if (n > 0) {
+      const el = document.getElementById('s' + n);
+      if (el) { el.style.display = 'block'; el.classList.add('visible'); }
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function goTo(n) { current = n; showSection(n); updateNav(); }
+  function nextSection() { if (current < totalSections) goTo(current + 1); }
+  function prevSection() {
+    if (current > 1) goTo(current - 1);
+    else { current = 0; showSection(0); updateNav(); }
+  }
+
+  showSection(0);
+  updateNav();
+</script>
+</body>
+</html>
