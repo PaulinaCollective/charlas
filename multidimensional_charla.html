@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Despertando a la Multidimensionalidad — Aprendiendo Charlando</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --cold-white: #f8f9fd;
+    --deep: #080e1f;
+    --mid: #1a2444;
+    --soft: #4a5a8a;
+    --slate: #8a9ac0;
+    --indigo: #3b4fd8;
+    --indigo-light: #7b8ff0;
+    --indigo-pale: #c5cdf8;
+    --midnight: #0d1535;
+    --violet: #6d4fc2;
+    --violet-pale: #d4c8f5;
+    --crystal: #e4e8fc;
+    --gold: #c9a96e;
+    --gold-pale: #f0e4cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cold-white);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,79,216,0.2) 0%, transparent 70%);
+    animation: breathe 8s ease-in-out infinite;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; right: -150px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109,79,194,0.15) 0%, transparent 70%);
+    animation: breathe 11s ease-in-out infinite reverse;
+  }
+
+  .cover-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(123,143,240,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(123,143,240,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Estrellas */
+  .stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: var(--o, 0.6); }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+
+  .cover-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(50px, 9vw, 110px);
+    font-weight: 300;
+    color: var(--cold-white);
+    line-height: 0.92;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--indigo-light);
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2.2vw, 21px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--slate);
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-btn {
+    padding: 10px 18px;
+    border: 1px solid rgba(123,143,240,0.3);
+    background: transparent;
+    color: var(--indigo-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .nav-btn:hover {
+    background: var(--indigo);
+    border-color: var(--indigo);
+    color: white;
+  }
+
+  /* SECTIONS */
+  .section {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: var(--crystal);
+    line-height: 1;
+    margin-bottom: -20px;
+    display: block;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 40px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--indigo);
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--indigo-pale);
+    margin-bottom: 40px;
+  }
+
+  .body-text {
+    font-size: clamp(16px, 1.8vw, 18px);
+    line-height: 1.85;
+    color: var(--mid);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    border-left: 3px solid var(--indigo);
+    padding: 24px 32px;
+    margin: 40px 0;
+    background: var(--crystal);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--deep);
+    line-height: 1.5;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--bg);
+    border: 1px solid var(--indigo-pale);
+    border-radius: 4px;
+    padding: 32px 36px;
+    margin: 36px 0;
+  }
+
+  .highlight-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--indigo);
+    margin-bottom: 16px;
+  }
+
+  .highlight-box p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* QUESTION BOX */
+  .question-box {
+    background: var(--deep);
+    border-radius: 4px;
+    padding: 36px 40px;
+    margin: 40px 0;
+  }
+
+  .q-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .question-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cold-white);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .question-box p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+
+  /* CONCEPT GRID */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 600px) { .concept-grid { grid-template-columns: 1fr; } }
+
+  .concept-card {
+    background: var(--cold-white);
+    border: 1px solid var(--indigo-pale);
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--indigo);
+  }
+
+  .concept-card.violet::before { background: var(--violet); }
+  .concept-card.gold::before { background: var(--gold); }
+
+  .concept-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--indigo-pale);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .concept-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 12px;
+  }
+
+  .concept-card.violet .concept-title { color: var(--violet); }
+  .concept-card.gold .concept-title { color: var(--gold); }
+
+  .concept-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  /* COSMOS ROW */
+  .cosmos-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+
+  .cosmos-pill {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    border: 1px solid var(--indigo-pale);
+    border-radius: 4px;
+    background: var(--cold-white);
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .cosmos-place {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .cosmos-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* LEVELS GRID */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 700px) { .levels-grid { grid-template-columns: 1fr; } }
+
+  .level-card {
+    background: var(--bg);
+    border-radius: 4px;
+    padding: 28px 24px;
+    border-bottom: 3px solid var(--indigo-pale);
+    transition: border-color 0.3s;
+  }
+
+  .level-card:hover { border-color: var(--indigo); }
+
+  .level-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .level-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 12px;
+  }
+
+  .level-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  /* CLOSING */
+  .closing {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .closing-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--deep);
+    margin-bottom: 40px;
+  }
+
+  .closing-title em { font-style: italic; color: var(--indigo); }
+
+  .closing p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.85;
+    color: var(--mid);
+    max-width: 560px;
+    margin: 0 auto 20px;
+  }
+
+  .refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .ref-pill {
+    font-size: 12px;
+    color: var(--indigo);
+    background: var(--crystal);
+    border: 1px solid var(--indigo-pale);
+    border-radius: 2px;
+    padding: 6px 14px;
+  }
+
+  /* NAV BAR */
+  .nav-bar {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--deep);
+    border: 1px solid rgba(123,143,240,0.2);
+    border-radius: 40px;
+    padding: 12px 24px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(8,14,31,0.2);
+  }
+
+  .nav-prev, .nav-next {
+    background: none;
+    border: none;
+    color: var(--indigo-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-prev:hover, .nav-next:hover { color: white; }
+  .nav-prev:disabled, .nav-next:disabled { color: var(--soft); cursor: default; }
+
+  .nav-indicator { display: flex; gap: 6px; align-items: center; }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--soft);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-dot.active {
+    background: var(--indigo-light);
+    width: 20px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-grid"></div>
+  <div class="stars" id="stars"></div>
+  <span class="cover-eyebrow">Charlando</span>
+  <h1 class="cover-title">Despertando a la<br><em>Multidimensionalidad</em></h1>
+  <p class="cover-subtitle">Quiénes somos en el cosmos, cómo navegamos mientras dormimos, y por qué el velo se está disolviendo ahora</p>
+  <div class="cover-nav">
+    <button class="nav-btn" onclick="goTo(1)">01 · El cosmos que habitamos</button>
+    <button class="nav-btn" onclick="goTo(2)">02 · Las frecuencias nuevas</button>
+    <button class="nav-btn" onclick="goTo(3)">03 · Mientras dormimos</button>
+    <button class="nav-btn" onclick="goTo(4)">04 · La parálisis de sueño</button>
+    <button class="nav-btn" onclick="goTo(5)">05 · Viajes en el tiempo</button>
+    <button class="nav-btn" onclick="goTo(6)">06 · Cierre</button>
+  </div>
+</div>
+
+<!-- SECTION 1: EL COSMOS -->
+<div class="section" id="s1">
+  <span class="section-number">01</span>
+  <span class="section-tag">El contexto galáctico</span>
+  <h2 class="section-title">El cosmos<br><em>que habitamos</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Para entender quiénes somos en este momento de transformación, ayuda saber dónde estamos. No solo en el planeta — sino en el cosmos. Porque nos estamos volviendo <strong>galácticos</strong>, y los galácticos necesitan conocer su geografía estelar.</p>
+
+  <div class="highlight-box">
+    <h3>Cómo explicarlo — de afuera hacia adentro</h3>
+    <p>
+      Imaginá que el universo es como una serie de cajas chinas, cada una dentro de la otra. Vamos de la más grande a la más pequeña — hasta llegar a nosotros.<br><br>
+
+      <strong>1. El Multiverso</strong><br>
+      Lo más grande que existe. Contiene múltiples universos. Su sede administrativa se llama <em>Uversa</em> u <em>Orbonton</em> — desde ahí se baja línea a todo lo que existe. Es el origen de todo el plan de creación.<br><br>
+
+      <strong>2. Laniakea — nuestro supercúmulo</strong><br>
+      Dentro del multiverso, hay supercúmulos de galaxias. El nuestro se llama <em>Laniakea</em> — palabra hawaiana que significa "cielo inmensurable". Fue nombrado así en 2014 por astrofísicos hawaianos, y no es casualidad: los hawaianos son la colonia humana que quedó más pura de Lemuria, y ya conocían este concepto mucho antes que la ciencia moderna. Laniakea mide 500 millones de años luz y contiene miles de galaxias. Es autónomo — no tiene un proyecto creador específico, por eso hay tanta diversidad de vida y de razas ahí, algunas muy distintas a nosotros.<br><br>
+
+      <strong>3. El Universo de Nevadon — nuestro "barrio"</strong><br>
+      Dentro de Laniakea hay un miniclúster que se llama <em>Universo de Nevadon</em> — también llamado Sector Theta. Este sí tiene un proyecto específico: fue elegido por un Hijo Creador para llevar adelante un plan de creación y ascensión espiritual. Nevadon abarca <strong>24 galaxias</strong> seleccionadas. Tiene su propia Confederación Galáctica — los representantes de esas 24 galaxias — que recibe lineamientos de la Supraconfederación de Laniakea, que a su vez los recibe de Uversa.<br><br>
+
+      <strong>4. Las 24 galaxias de Nevadon</strong><br>
+      La <strong>primera galaxia</strong> formateada dentro de Nevadon es <em>Andrómeda</em> — la más antigua y evolucionada del proyecto. La <strong>última</strong> formateada — la más joven, la que todavía está completando su evolución — es nuestra <em>Vía Láctea</em>. Esto es importante: cuando la galaxia más joven termina su ciclo, la primera estira un brazo y la incorpora. Ese proceso ya empezó — la fusión de Andrómeda con la Vía Láctea es científicamente confirmada por la NASA. Ocurrirá en unos 4.500 millones de años a nivel físico, pero energéticamente ya está en curso. El resultado se llamará <em>Androláctea</em> o <em>Lactómeda</em>.<br><br>
+
+      <strong>5. La Vía Láctea y la Tierra</strong><br>
+      Dentro de la Vía Láctea está nuestro sistema solar, y en él, la Tierra. Este planeta no es cualquier planeta dentro del proyecto — es donde se está llevando a cabo el experimento más extraordinario del universo de Nevadon: el salto evolutivo del Homo Sapiens al Humano Galáctico, <em>sin moverse del lugar</em>. Sin morir y reencarnar en otro planeta. Desde aquí mismo, cambiando la estructura molecular.
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"No somos un accidente cósmico en un planeta perdido. Somos el punto de llegada de un proyecto de 24 galaxias. La Tierra es donde culmina todo."</p>
+  </div>
+
+  <div class="highlight-box">
+    <h3>¿Por qué hay seres que no son de amor incondicional?</h3>
+    <p>
+      Esta pregunta aparece siempre. La respuesta está en la geografía: el universo de Nevadon, con su proyecto de amor incondicional y ascensión, es solo una parte de Laniakea. Fuera de las 36 dimensiones de Nevadon hay vida autónoma — razas que no forman parte del proyecto trínito, con sus propias historias y agendas. No son "el mal" en términos absolutos — son parte de un universo muchísimo más vasto y diverso que lo que nos enseñaron. La clave es saber en qué frecuencia uno está y desde ahí relacionarse con todo lo que existe.
+    </p>
+  </div>
+
+  <div class="cosmos-row">
+    <div class="cosmos-pill">
+      <span class="cosmos-place">Uversa / Orbonton</span>
+      <p class="cosmos-text">Sede administrativa del multiverso. El origen de todo el plan.</p>
+    </div>
+    <div class="cosmos-pill">
+      <span class="cosmos-place">Laniakea</span>
+      <p class="cosmos-text">Nuestro supercúmulo. 500 millones de años luz. Nombre hawaiano — legado lemuriano.</p>
+    </div>
+    <div class="cosmos-pill">
+      <span class="cosmos-place">Universo de Nevadon</span>
+      <p class="cosmos-text">24 galaxias con un proyecto específico de creación y ascensión.</p>
+    </div>
+    <div class="cosmos-pill">
+      <span class="cosmos-place">Vía Láctea → Tierra</span>
+      <p class="cosmos-text">La galaxia más joven del proyecto. El planeta donde culmina todo.</p>
+    </div>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Pausa para el grupo</span>
+    <h3>"¿Cómo te sentís cuando pensás que formás parte de un plan cósmico que abarca 24 galaxias? ¿Expansión, vértigo, o algo más?"</h3>
+    <p>No hay respuesta correcta. Es solo registrar dónde está parado cada uno ante esta información.</p>
+  </div>
+</div>
+
+<!-- SECTION 2: FRECUENCIAS -->
+<div class="section" id="s2">
+  <span class="section-number">02</span>
+  <span class="section-tag">Lo que el cuerpo recibe</span>
+  <h2 class="section-title">Las frecuencias<br><em>nuevas</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Las frecuencias de alta gama que están llegando al planeta no son abstractas — el cuerpo las recibe de manera muy concreta. Entran por los órganos que tienen forma de <strong>espiral</strong>, específicamente a través del sistema nervioso central. Hay dos espirales principales: uno detrás de la glándula pineal, y otro en el oído medio — el <strong>caracol</strong>.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">👂</div>
+      <div class="concept-title">El caracol — oído medio</div>
+      <p class="concept-text">Es el órgano calibrador de frecuencias de alta gama. También es el centro del equilibrio — por eso cuando entra una frecuencia nueva aparecen pitidos, mareos y sensación de aturdimiento. El cuerpo está literalmente aprendiendo a modular una señal que nunca había recibido antes.</p>
+    </div>
+    <div class="concept-card violet">
+      <div class="concept-num">🔮</div>
+      <div class="concept-title">La glándula pineal</div>
+      <p class="concept-text">El navegador interno. Detrás de ella hay una espiral que recibe las frecuencias más sutiles. Su activación está directamente relacionada con el despertar multidimensional — por eso su descalcificación es tan importante en este proceso.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>¿Qué hacer con los pitidos?</h3>
+    <p>
+      No sirve ir al médico para "curarlos" — no es una enfermedad, es una calibración.<br><br>
+      Si el pitido es muy intenso o aturdidor, podés hablarle a tus guías o médicos estelares directamente, como a amigos, y pedirles que <strong>bajen el calibre de la descarga</strong>. Ellos a veces no miden lo que el cuerpo físico está sintiendo — y responden cuando se les pide con claridad.<br><br>
+      También pueden ocurrir <strong>descargas eléctricas durante el sueño</strong> — saltos de tendones, sacudidas al quedarse dormido. Es parte del mismo proceso de recalibración biológica.
+    </p>
+  </div>
+
+  <p class="body-text">Estamos en la <strong>Era de Acuario</strong> — la era de volcar el conocimiento. Las frecuencias que llegan no son aleatorias: traen información codificada en luz que el cuerpo, al ir haciéndose más cristalino, puede empezar a decodificar. Lo que antes era "intuición" o "corazonada" se vuelve percepción más clara y sostenida.</p>
+
+  <div class="pull-quote">
+    <p>"Cada humano tiene que modular individualmente su propio ancho de banda de frecuencia. No hay una sola forma — cada biología tiene su propio proceso."</p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Para el grupo</span>
+    <h3>"¿Alguien ha experimentado pitidos, mareos súbitos, o sacudidas al dormirse que no tuvieran explicación médica? ¿Cómo lo vivieron?"</h3>
+    <p>Compartir desde la experiencia propia. A veces nombrar lo que está pasando ya es la mitad del camino.</p>
+  </div>
+</div>
+
+<!-- SECTION 3: SUEÑOS -->
+<div class="section" id="s3">
+  <span class="section-number">03</span>
+  <span class="section-tag">La vida nocturna</span>
+  <h2 class="section-title">Mientras<br><em>dormimos</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">El sueño no es simplemente descanso. Es el momento en que el cuerpo se repara, pero también el momento en que la conciencia navega. Con el velo entre el consciente y el inconsciente disolviéndose, empezamos a recordar — y a veces a vivir conscientemente — lo que hacemos mientras dormimos.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">💤</div>
+      <div class="concept-title">La nebulosa de los sueños</div>
+      <p class="concept-text">Cuando nos acostamos cansados, con baja vibración o después de cenar mucho, el cerebro activa un piloto automático del bulbo raquídeo. La mente no puede parar — si para, el cordón de plata se corta y morimos. Entonces fabrica imágenes del día para mantenerse activa mientras el cuerpo descansa. Son los sueños "fantasiosos" — reales en su mecanismo, pero no proyecciones de la conciencia.</p>
+    </div>
+    <div class="concept-card violet">
+      <div class="concept-num">✨</div>
+      <div class="concept-title">Los sueños lúcidos reales</div>
+      <p class="concept-text">Cuando nos acostamos con vibración elevada — después de una ducha, una meditación, sahumerio, sin tecnología — no se necesita la nebulosa. La conciencia se proyecta holográficamente o viaja en el cuerpo astral. Esos sueños no son sueños — son navegaciones reales por otras dimensiones que recordamos al despertar.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Cómo preparar el sueño para navegar</h3>
+    <p>
+      · <strong>Ducha antes de dormir</strong> — descarga la energía del día acumulada en el campo.<br><br>
+      · <strong>Sin pantallas al menos 30 minutos antes</strong> — la luz azul y la estimulación mental activan la nebulosa.<br><br>
+      · <strong>Sin alcohol</strong> — baja la vibración al bajo astral. Los sueños bajo el efecto del alcohol son paseos por frecuencias densas.<br><br>
+      · <strong>Sahumerio o sonido</strong> — limpian el campo del cuarto antes de dormir.<br><br>
+      · <strong>Intención consciente</strong> — al acostarse, establecer una intención de navegar con conciencia eleva la vibración del momento de transición.
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"No nos morimos cada noche — navegamos. El cuerpo descansa, la conciencia viaja. Siempre lo hicimos. Solo que ahora empezamos a recordarlo."</p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Reflexión individual</span>
+    <h3>"¿Recordás tus sueños? ¿Hay diferencia en la calidad de los sueños según cómo te fuiste a dormir?"</h3>
+    <p>Observar el patrón durante una semana puede revelar mucho sobre el estado vibracional cotidiano.</p>
+  </div>
+</div>
+
+<!-- SECTION 4: PARÁLISIS -->
+<div class="section" id="s4">
+  <span class="section-number">04</span>
+  <span class="section-tag">El momento del acople</span>
+  <h2 class="section-title">La parálisis<br><em>de sueño</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">La parálisis de sueño es uno de los fenómenos más comunes de este período de transición — y uno de los más malentendidos. No es una anomalía ni una patología. Es el resultado de recuperar nuestra multidimensionalidad mientras el cuerpo todavía está aprendiendo a gestionarla.</p>
+
+  <div class="highlight-box">
+    <h3>Qué pasa mecánicamente</h3>
+    <p>
+      Cuando entramos en sueño profundo (etapa REM), el <strong>cuerpo astral se desprende</strong> del cuerpo físico para navegar. Para que eso sea posible, se desconecta el mando voluntario del cuerpo físico — si no, lo moveríamos mientras soñamos.<br><br>
+      Si nos despertamos bruscamente — por un sueño muy intenso, un ruido, o un susto — sin dar tiempo a que el cuerpo astral se reacople al físico, quedamos en un estado intermedio: conscientes, pero sin mando sobre el cuerpo. Eso es la parálisis.<br><br>
+      <strong>No hay nada de qué asustarse.</strong> El acople ocurre solo en segundos o minutos. A veces se siente como un "salto" o sacudida al volver — es literalmente el cuerpo astral aterrizando.
+    </p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num">😌</div>
+      <div class="concept-title">Parálisis simple</div>
+      <p class="concept-text">Despertar brusco + cuerpo astral no reacoplado. Sin presencia, sin presión. Solo inmovilidad temporal. La solución: <strong>no asustarse, respirar, relajarse</strong> y esperar el acople. El miedo lo prolonga — la calma lo acelera.</p>
+    </div>
+    <div class="concept-card violet">
+      <div class="concept-num">⚡</div>
+      <div class="concept-title">Con presencia o presión</div>
+      <p class="concept-text">Ocurre cuando la vibración al acostarse era baja — alcohol, ira, tristeza, películas de terror. El cuerpo astral navega por el bajo astral y seres parasitarios intentan alimentarse del miedo. Para volver: pronunciar <strong>"Jesús"</strong> o <strong>"Yo Soy"</strong> con intención. Funciona inmediatamente.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Tips para reducirla</h3>
+    <p>
+      · <strong>No dormir boca arriba</strong> — la posición de lado o fetal reduce significativamente la parálisis.<br><br>
+      · <strong>Gestionar el estrés extremo</strong> antes de dormir — el sistema nervioso activado dificulta el acople limpio.<br><br>
+      · <strong>Mantener alta la vibración al acostarse</strong> — lo que hacemos en los 30 minutos previos al sueño define en qué dimensión navegamos.
+    </p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Para el grupo</span>
+    <h3>"¿Alguien ha vivido una parálisis de sueño? ¿Cómo fue la experiencia? ¿Cambiaría algo en cómo lo viviste si hubieras sabido esto antes?"</h3>
+    <p>Compartir estas experiencias en comunidad las normaliza y les saca el miedo que a veces las acompaña.</p>
+  </div>
+</div>
+
+<!-- SECTION 5: VIAJES EN EL TIEMPO -->
+<div class="section" id="s5">
+  <span class="section-number">05</span>
+  <span class="section-tag">La glándula pineal como navegador</span>
+  <h2 class="section-title">Viajes<br><em>en el tiempo</em></h2>
+  <div class="divider"></div>
+
+  <p class="body-text">Los viajes en el tiempo no son ciencia ficción — son una capacidad que tenemos por diseño y que estamos recuperando. Hay dos formas de hacerlos: a través de nuestra <strong>tecnología biológica</strong>, y a través de maquinaria física que está siendo desarrollada.</p>
+
+  <div class="levels-grid">
+    <div class="level-card">
+      <span class="level-icon">🔮</span>
+      <div class="level-title">Glándula pineal</div>
+      <p class="level-text">Es literalmente un navegador — como un buscador cuántico. A través de la proyección holográfica nos permite proyectarnos en cualquier línea de tiempo: pasada, futura, o en universos paralelos. Con las 20 fibras de ADN activas, tendremos acceso consciente a todas las líneas de tiempo simultáneamente.</p>
+    </div>
+    <div class="level-card">
+      <span class="level-icon">🌀</span>
+      <div class="level-title">Hipnosis regresiva</div>
+      <p class="level-text">Una forma ya disponible de viaje temporal. Permite ir al momento exacto de un conflicto — en esta vida, en vidas pasadas, incluso en Lemuria — para repararlo y traer la sanación al presente. No es solo recordar — es vivir la experiencia y modificar su impacto en el ahora.</p>
+    </div>
+    <div class="level-card">
+      <span class="level-icon">🚀</span>
+      <div class="level-title">Cápsulas físicas</div>
+      <p class="level-text">Existen máquinas del tiempo que funcionan saliendo de la atmósfera terrestre — fuera del "domo" electromagnético. Al salir de la malla de la Matrix 3D, se queda libre para navegar líneas de tiempo mediante un ordenador cuántico. Estarán disponibles para nosotros entre 2028 y 2031.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>¿Cómo es la experiencia de un viaje en el tiempo?</h3>
+    <p>
+      No es ver una película — es vivir la experiencia como una <strong>realidad completamente real</strong>. Se siente dolor, alegría, miedo, amor en el cuerpo y en el alma. Es similar a una realidad virtual muy avanzada, pero sin tecnología externa.<br><br>
+      En la Antártida ya existe un ejemplo actual: seres de Sirio, Pléyades y Aldebarán viven ahí en frecuencia 5D. Ellos no ven nuestra densidad — ven superficie vacía. Nosotros solo vemos nieve. Misma ubicación física, bandas de frecuencia completamente distintas. Las líneas de tiempo ya son simultáneas — solo que todavía no podemos percibirlas todas.
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"En quinta dimensión no vamos a necesitar naves para viajar en el tiempo. Con la glándula pineal activa y las 20 fibras de ADN funcionando, todas las líneas de tiempo van a estar disponibles para nosotros conscientemente."</p>
+  </div>
+
+  <div class="question-box">
+    <span class="q-label">✦ Para el grupo</span>
+    <h3>"Si pudieras viajar a cualquier momento — pasado, futuro, o universo paralelo — ¿a dónde irías primero? ¿Y con qué propósito?"</h3>
+    <p>Una pregunta para jugar, imaginar y observar qué parte de uno mismo responde.</p>
+  </div>
+</div>
+
+<!-- SECTION 6: CIERRE -->
+<div class="section" id="s6">
+  <span class="section-number">06</span>
+  <span class="section-tag">Para llevar</span>
+  <h2 class="section-title">Lo que queremos<br><em>que se quede</em></h2>
+  <div class="divider"></div>
+
+  <div class="closing">
+    <h2 class="closing-title">Somos<br><em>multidimensionales</em><br>por diseño.</h2>
+    <div class="divider" style="margin: 32px auto; width:40px;"></div>
+    <p>No es algo que vamos a ser — es algo que ya somos y que estaba velado. El velo se está disolviendo ahora, en este momento histórico, porque llegó el momento de que lo recordemos.</p>
+    <p>Los pitidos, la parálisis, los sueños vívidos, las sincronicidades — no son anomalías. Son señales de que el sistema se está encendiendo. El cuerpo está recibiendo frecuencias que nunca antes había procesado, y está aprendiendo a hacerlo.</p>
+    <p>Cada vez que nos preparamos conscientemente para dormir, cada vez que le pedimos a nuestros guías que regulen la descarga, cada vez que recordamos un sueño y lo registramos — estamos entrenando nuestra multidimensionalidad.</p>
+    <p style="margin-top: 32px; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--indigo);">No estamos solos en el cosmos.<br>Nunca lo estuvimos.</p>
+    <div class="divider" style="margin: 40px auto; width:40px;"></div>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 24px); font-style: italic; color: var(--mid); line-height: 1.6;">"Nos estamos volviendo galácticos<br>sin movernos de la Tierra.<br>Ese es el experimento más extraordinario del universo."</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="body-text" style="text-align:center; font-size:14px; color: var(--soft);">Referencias que alimentaron esta charla</p>
+  <div class="refs">
+    <span class="ref-pill">El Libro de Urantia — Universo de Nevadon</span>
+    <span class="ref-pill">Laniakea — Tully et al., Nature 2014</span>
+    <span class="ref-pill">Hipnosis regresiva — Brian Weiss</span>
+    <span class="ref-pill">Glándula pineal — Rick Strassman</span>
+    <span class="ref-pill">Sueños lúcidos — Stephen LaBerge</span>
+  </div>
+
+  <div style="margin-top: 60px; padding-top: 32px; padding-bottom: 100px; border-top: 1px solid var(--crystal); text-align: center;">
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--soft); margin-bottom: 10px;">Una charla de</p>
+    <a href="https://paulinacollective.github.io/PaulinaCollective/" target="_blank" style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: var(--indigo); text-decoration: none; letter-spacing: 1px;" onmouseover="this.style.color='var(--deep)'" onmouseout="this.style.color='var(--indigo)'">Paulina</a>
+    <p style="margin-top: 12px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft);">Más charlas</p>
+    <a href="https://paulinacollective.github.io/charlas" target="_blank" style="display: inline-block; margin-top: 8px; font-size: 13px; color: var(--indigo); text-decoration: none; border-bottom: 1px solid var(--indigo-pale); padding-bottom: 2px; letter-spacing: 1px;" onmouseover="this.style.color='var(--deep)'" onmouseout="this.style.color='var(--indigo)'">paulinacollective.github.io/charlas</a>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar" id="navBar" style="display:none;">
+  <button class="nav-prev" id="btnPrev" onclick="prevSection()">← Anterior</button>
+  <div class="nav-indicator" id="navIndicator"></div>
+  <button class="nav-next" id="btnNext" onclick="nextSection()">Siguiente →</button>
+</div>
+
+<script>
+  // Generar estrellas
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--d', (2 + Math.random() * 4) + 's');
+    star.style.setProperty('--o', (0.3 + Math.random() * 0.7).toFixed(2));
+    star.style.animationDelay = (Math.random() * 4) + 's';
+    if (Math.random() > 0.7) { star.style.width = '3px'; star.style.height = '3px'; }
+    starsContainer.appendChild(star);
+  }
+
+  const totalSections = 6;
+  let current = 0;
+
+  function updateNav() {
+    const navBar = document.getElementById('navBar');
+    const navIndicator = document.getElementById('navIndicator');
+    navBar.style.display = current === 0 ? 'none' : 'flex';
+    navIndicator.innerHTML = '';
+    for (let i = 1; i <= totalSections; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === current ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      navIndicator.appendChild(dot);
+    }
+    document.getElementById('btnPrev').disabled = current <= 1;
+    document.getElementById('btnNext').disabled = current >= totalSections;
+  }
+
+  function showSection(n) {
+    document.getElementById('cover').style.display = n === 0 ? 'flex' : 'none';
+    for (let i = 1; i <= totalSections; i++) {
+      const el = document.getElementById('s' + i);
+      if (el) { el.style.display = 'none'; el.classList.remove('visible'); }
+    }
+    if (n > 0) {
+      const el = document.getElementById('s' + n);
+      if (el) { el.style.display = 'block'; el.classList.add('visible'); }
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function goTo(n) { current = n; showSection(n); updateNav(); }
+  function nextSection() { if (current < totalSections) goTo(current + 1); }
+  function prevSection() {
+    if (current > 1) goTo(current - 1);
+    else { current = 0; showSection(0); updateNav(); }
+  }
+
+  showSection(0);
+  updateNav();
+</script>
+</body>
+</html>
