@@ -1,3 +1,6 @@
+
+
+Charlas index · HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,23 +17,23 @@
     --border: #e2e8f0;
     --hover: #f1f5f9;
   }
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
     color: var(--deep);
     min-height: 100vh;
   }
-
+ 
   header {
     padding: 80px 40px 60px;
     max-width: 860px;
     margin: 0 auto;
     border-bottom: 1px solid var(--border);
   }
-
+ 
   .header-eyebrow {
     font-size: 11px;
     letter-spacing: 4px;
@@ -39,7 +42,7 @@
     margin-bottom: 24px;
     display: block;
   }
-
+ 
   .header-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(48px, 8vw, 96px);
@@ -49,25 +52,25 @@
     margin-bottom: 24px;
     letter-spacing: -1px;
   }
-
+ 
   .header-title em {
     font-style: italic;
     color: var(--soft);
   }
-
+ 
   .header-desc {
     font-size: 16px;
     line-height: 1.7;
     color: var(--soft);
     max-width: 480px;
   }
-
+ 
   main {
     max-width: 860px;
     margin: 0 auto;
     padding: 0 40px 120px;
   }
-
+ 
   .list-label {
     font-size: 10px;
     letter-spacing: 4px;
@@ -77,7 +80,7 @@
     display: block;
     border-bottom: 1px solid var(--border);
   }
-
+ 
   .charla-card {
     display: grid;
     grid-template-columns: 120px 1fr auto;
@@ -90,7 +93,7 @@
     transition: background 0.2s;
     border-radius: 4px;
   }
-
+ 
   .charla-card:hover {
     background: var(--hover);
     padding-left: 16px;
@@ -98,12 +101,12 @@
     margin-left: -16px;
     margin-right: -16px;
   }
-
+ 
   @media (max-width: 600px) {
     .charla-card { grid-template-columns: 1fr; gap: 12px; }
     .charla-arrow { display: none; }
   }
-
+ 
   .charla-fecha {
     font-family: 'Cormorant Garamond', serif;
     font-size: 13px;
@@ -111,7 +114,7 @@
     padding-top: 6px;
     line-height: 1.4;
   }
-
+ 
   .charla-titulo {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(26px, 3.5vw, 36px);
@@ -120,34 +123,34 @@
     color: var(--deep);
     margin-bottom: 12px;
   }
-
+ 
   .charla-titulo em { font-style: italic; }
-
+ 
   .charla-desc {
     font-size: 14px;
     line-height: 1.7;
     color: var(--soft);
     max-width: 500px;
   }
-
+ 
   .charla-arrow {
     font-size: 20px;
     color: var(--border);
     padding-top: 8px;
     transition: color 0.2s, transform 0.2s;
   }
-
+ 
   .charla-card:hover .charla-arrow {
     color: var(--soft);
     transform: translateX(4px);
   }
-
+ 
   footer {
     text-align: center;
     padding: 40px;
     border-top: 1px solid var(--border);
   }
-
+ 
   footer a {
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
@@ -155,9 +158,9 @@
     text-decoration: none;
     transition: color 0.2s;
   }
-
+ 
   footer a:hover { color: var(--deep); }
-
+ 
   footer p {
     margin-top: 8px;
     font-size: 12px;
@@ -168,21 +171,21 @@
 </style>
 </head>
 <body>
-
+ 
 <header>
   <span class="header-eyebrow">Paulina Collective · Aprendiendo Charlando</span>
   <h1 class="header-title">Una biblioteca<br>de <em>charlas</em></h1>
   <p class="header-desc">Recursos para círculos de aprendizaje, reflexión, soberanía interior y humanidad. Ideas destiladas, preguntas para el grupo y herramientas concretas.</p>
 </header>
-
+ 
 <main>
   <span class="list-label">Charlas disponibles</span>
-
+ 
   <!-- =============================================
        AGREGAR CHARLA NUEVA: copiar el bloque de abajo
        y pegarlo aquí antes de este comentario
        ============================================= -->
-
+ 
   <a class="charla-card" href="silicio.html">
     <div class="charla-fecha">Mayo<br>2026</div>
     <div>
@@ -191,7 +194,7 @@
     </div>
     <div class="charla-arrow">→</div>
   </a>
-
+ 
   <a class="charla-card" href="galactico_charla.html">
     <div class="charla-fecha">Mayo<br>2026</div>
     <div>
@@ -200,7 +203,7 @@
     </div>
     <div class="charla-arrow">→</div>
   </a>
-
+ 
   <a class="charla-card" href="comunidad_charla.html">
     <div class="charla-fecha">Junio<br>2026</div>
     <div>
@@ -209,7 +212,7 @@
     </div>
     <div class="charla-arrow">→</div>
   </a>
-
+ 
   <a class="charla-card" href="ternura.html">
     <div class="charla-fecha">Junio<br>2026</div>
     <div>
@@ -218,21 +221,28 @@
     </div>
     <div class="charla-arrow">→</div>
   </a>
-
-  <a class="charla-card" href="multidimensional_charla.html">
-    <div class="charla-fecha">Junio<br>2026</div>
+ 
+  <a class="charla-card" href="acuerdos_charla.html">
+    <div class="charla-fecha">Julio<br>2026</div>
     <div>
-      <h2 class="charla-titulo">Despertando a la <em>Multidimensionalidad</em></h2>
-      <p class="charla-desc">Quiénes somos en el cosmos, cómo navegamos mientras dormimos, y por qué el velo se está disolviendo ahora. Laniakea, sueños lúcidos, parálisis de sueño y viajes en el tiempo.</p>
+      <h2 class="charla-titulo">Los 5 <em>Acuerdos</em> Toltecas</h2>
+      <p class="charla-desc">Un marco compartido para la manera en que nos relacionamos, comunicamos y trabajamos juntos como comunidad. Sabiduría ancestral como principio vivo de la Resonancia Global Humanitaria.</p>
     </div>
     <div class="charla-arrow">→</div>
   </a>
-
+ 
 </main>
-
+ 
 <footer>
   <a href="https://paulinacollective.github.io/PaulinaCollective/" target="_blank">Paulina Collective</a>
 </footer>
-
+ 
 </body>
 </html>
+ 
+
+
+
+
+
+
