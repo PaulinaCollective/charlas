@@ -10,16 +10,16 @@ Acuerdos charla · HTML
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #f5f0e8;
-    --warm-white: #faf8f4;
-    --terracotta: #c4714a;
-    --terracotta-light: #d9957a;
-    --deep: #2a1f1a;
-    --mid: #5c4a3e;
-    --soft: #9c8578;
-    --gold: #b8965a;
-    --blush: #e8d5c4;
-    --sage: #7a8c7e;
+    --cream: #f0f5f1;
+    --warm-white: #f7faf7;
+    --terracotta: #2e8b6a;
+    --terracotta-light: #5dba94;
+    --deep: #0d1f17;
+    --mid: #2e5040;
+    --soft: #5a8a72;
+    --gold: #d4a830;
+    --blush: #b8dfc8;
+    --sage: #3d7a5e;
   }
  
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,7 +40,7 @@ Acuerdos charla · HTML
     align-items: center;
     text-align: center;
     padding: 60px 40px;
-    background: var(--deep);
+    background: linear-gradient(160deg, #0d2e1e 0%, #153d28 50%, #0a1f14 100%);
     position: relative;
     overflow: hidden;
   }
@@ -48,21 +48,36 @@ Acuerdos charla · HTML
   .cover::before {
     content: '';
     position: absolute;
-    top: -200px; left: -200px;
-    width: 600px; height: 600px;
+    top: -100px; left: -100px;
+    width: 500px; height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(196,113,74,0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(93,186,148,0.12) 0%, transparent 70%);
     animation: breathe 6s ease-in-out infinite;
   }
  
   .cover::after {
     content: '';
     position: absolute;
-    bottom: -150px; right: -150px;
+    bottom: -100px; right: -100px;
     width: 500px; height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(184,150,90,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(212,168,48,0.1) 0%, transparent 70%);
     animation: breathe 8s ease-in-out infinite reverse;
+  }
+ 
+  .cover-tolteca {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.06;
+    width: min(600px, 90vw);
+    animation: rotateSlow 60s linear infinite;
+  }
+ 
+  @keyframes rotateSlow {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
   }
  
   @keyframes breathe {
@@ -75,7 +90,7 @@ Acuerdos charla · HTML
     font-size: 11px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--terracotta-light);
+    color: #d4a830;
     margin-bottom: 32px;
     position: relative;
     z-index: 1;
@@ -85,7 +100,7 @@ Acuerdos charla · HTML
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(60px, 10vw, 120px);
     font-weight: 300;
-    color: var(--cream);
+    color: #e8f5ee;
     line-height: 0.9;
     letter-spacing: -2px;
     margin-bottom: 24px;
@@ -95,7 +110,7 @@ Acuerdos charla · HTML
  
   .cover-title em {
     font-style: italic;
-    color: var(--terracotta-light);
+    color: #d4a830;
   }
  
   .cover-subtitle {
@@ -122,9 +137,9 @@ Acuerdos charla · HTML
  
   .nav-btn {
     padding: 10px 20px;
-    border: 1px solid rgba(196,113,74,0.4);
+    border: 1px solid rgba(212,168,48,0.4);
     background: transparent;
-    color: var(--terracotta-light);
+    color: #d4a830;
     font-family: 'DM Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 1px;
@@ -134,9 +149,9 @@ Acuerdos charla · HTML
   }
  
   .nav-btn:hover, .nav-btn.active {
-    background: var(--terracotta);
-    border-color: var(--terracotta);
-    color: white;
+    background: #d4a830;
+    border-color: #d4a830;
+    color: #0d2e1e;
   }
  
   /* SECTIONS */
@@ -265,7 +280,7 @@ Acuerdos charla · HTML
  
   /* QUESTION BOX */
   .question-box {
-    background: linear-gradient(135deg, var(--terracotta) 0%, #a0583a 100%);
+    background: linear-gradient(135deg, var(--terracotta) 0%, #2a5c42 100%);
     color: white;
     padding: 36px 40px;
     margin: 48px 0;
@@ -584,6 +599,54 @@ Acuerdos charla · HTML
  
 <!-- COVER -->
 <div class="cover" id="cover">
+ 
+  <!-- Símbolo tolteca — calendario solar estilizado -->
+  <svg class="cover-tolteca" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <!-- Círculos concéntricos -->
+    <circle cx="200" cy="200" r="190" stroke="#d4a830" stroke-width="1.5"/>
+    <circle cx="200" cy="200" r="160" stroke="#d4a830" stroke-width="0.8"/>
+    <circle cx="200" cy="200" r="120" stroke="#d4a830" stroke-width="1.2"/>
+    <circle cx="200" cy="200" r="80"  stroke="#d4a830" stroke-width="0.8"/>
+    <circle cx="200" cy="200" r="40"  stroke="#d4a830" stroke-width="1.5"/>
+    <!-- Rayos principales (8) -->
+    <line x1="200" y1="10"  x2="200" y2="80"  stroke="#d4a830" stroke-width="1.5"/>
+    <line x1="200" y1="320" x2="200" y2="390" stroke="#d4a830" stroke-width="1.5"/>
+    <line x1="10"  y1="200" x2="80"  y2="200" stroke="#d4a830" stroke-width="1.5"/>
+    <line x1="320" y1="200" x2="390" y2="200" stroke="#d4a830" stroke-width="1.5"/>
+    <line x1="55"  y1="55"  x2="107" y2="107" stroke="#d4a830" stroke-width="1"/>
+    <line x1="293" y1="293" x2="345" y2="345" stroke="#d4a830" stroke-width="1"/>
+    <line x1="345" y1="55"  x2="293" y2="107" stroke="#d4a830" stroke-width="1"/>
+    <line x1="55"  y1="345" x2="107" y2="293" stroke="#d4a830" stroke-width="1"/>
+    <!-- Rayos secundarios entre los 8 principales -->
+    <line x1="200" y1="40"  x2="200" y2="80"  stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="149" y1="16"  x2="162" y2="52"  stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="251" y1="16"  x2="238" y2="52"  stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="384" y1="149" x2="348" y2="162" stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="384" y1="251" x2="348" y2="238" stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="16"  y1="149" x2="52"  y2="162" stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="16"  y1="251" x2="52"  y2="238" stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="149" y1="384" x2="162" y2="348" stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <line x1="251" y1="384" x2="238" y2="348" stroke="#d4a830" stroke-width="0.5" opacity="0.5"/>
+    <!-- Triángulos decorativos en los rayos -->
+    <polygon points="200,10 193,30 207,30"   fill="#d4a830" opacity="0.6"/>
+    <polygon points="200,390 193,370 207,370" fill="#d4a830" opacity="0.6"/>
+    <polygon points="10,200 30,193 30,207"   fill="#d4a830" opacity="0.6"/>
+    <polygon points="390,200 370,193 370,207" fill="#d4a830" opacity="0.6"/>
+    <!-- Cuadrado central rotado -->
+    <rect x="172" y="172" width="56" height="56" transform="rotate(45 200 200)" stroke="#d4a830" stroke-width="1.2" fill="none"/>
+    <!-- Punto central -->
+    <circle cx="200" cy="200" r="6" fill="#d4a830" opacity="0.8"/>
+    <!-- Ornamentos en el anillo exterior -->
+    <circle cx="200" cy="40"  r="4" fill="#d4a830" opacity="0.5"/>
+    <circle cx="200" cy="360" r="4" fill="#d4a830" opacity="0.5"/>
+    <circle cx="40"  cy="200" r="4" fill="#d4a830" opacity="0.5"/>
+    <circle cx="360" cy="200" r="4" fill="#d4a830" opacity="0.5"/>
+    <circle cx="75"  cy="75"  r="3" fill="#d4a830" opacity="0.4"/>
+    <circle cx="325" cy="75"  r="3" fill="#d4a830" opacity="0.4"/>
+    <circle cx="75"  cy="325" r="3" fill="#d4a830" opacity="0.4"/>
+    <circle cx="325" cy="325" r="3" fill="#d4a830" opacity="0.4"/>
+  </svg>
+ 
   <p class="cover-eyebrow">Sabiduría ancestral · Práctica contemporánea</p>
   <h1 class="cover-title">Los 5<br><em>Acuerdos</em></h1>
   <p class="cover-subtitle">Una filosofía tolteca para vivir con integridad, claridad y libertad interior</p>
@@ -879,8 +942,8 @@ Acuerdos charla · HTML
       <span class="name">Haz siempre tu mejor esfuerzo</span>
       <p>Tu mejor esfuerzo hoy es suficiente. Y cuidar que haya un mañana también es parte del esfuerzo.</p>
     </div>
-    <div class="summary-item" style="grid-column: 1 / -1; border-left-color: var(--gold);">
-      <span class="num" style="color: var(--gold);">05</span>
+    <div class="summary-item" style="grid-column: 1 / -1; border-left-color: #c9a84c;">
+      <span class="num" style="color: #c9a84c;">05</span>
       <span class="name">Sé escéptico, pero aprende a escuchar</span>
       <p>No te entregues ciegamente a ninguna historia — ni la ajena ni la tuya. Escucha con atención plena y filtra con consciencia. Eso, junto, es sabiduría.</p>
     </div>
@@ -893,7 +956,7 @@ Acuerdos charla · HTML
     <div class="divider" style="margin: 32px auto; width:40px;"></div>
     <p>Los acuerdos toltecas no son una promesa de vida perfecta. Son una invitación a vivir con mayor conciencia de los acuerdos que ya tienes — los que firmaste siendo pequeño, los que adoptaste por miedo, los que mantienes por costumbre — y a elegir, desde ese lugar más lúcido, con cuáles quieres seguir.</p>
     <p>Esa elección es un acto profundamente político. En un mundo que constantemente nos dice cómo debemos ser, elegir cómo quieres hablarte, no tomarte todo como ataque personal, preguntar en lugar de suponer y darte permiso de ser suficiente con lo que puedes dar hoy — eso no es trivial. Es transformador.</p>
-    <p style="margin-top: 32px; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--terracotta);">Y la transformación más radical que puedes hacer es la tuya.</p>
+    <p style="margin-top: 32px; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c9a84c;">Y la transformación más radical que puedes hacer es la tuya.</p>
     <div class="divider" style="margin: 40px auto; width:40px;"></div>
     <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 24px); font-style: italic; color: var(--mid); line-height: 1.6;">"Cuando eres impecable con tu palabra,<br>plantas semillas de amor,<br>no de miedo."</p>
     <p style="margin-top: 12px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft);">Don Miguel Ruiz</p>
