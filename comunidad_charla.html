@@ -67,26 +67,13 @@
     animation: breathe 11s ease-in-out infinite reverse;
   }
 
-  .cover-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(184,154,176,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(184,154,176,0.05) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
+  .cover-grid { display: none; }
 
   /* Círculo animado en portada */
-  .cover-circle {
-    position: absolute;
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    border: 1px solid rgba(184,154,176,0.15);
-    animation: expand 6s ease-in-out infinite;
-  }
+  .cover-circle { display: none; }
 
-  .cover-circle:nth-child(2) { width: 550px; height: 550px; animation-delay: 1s; }
-  .cover-circle:nth-child(3) { width: 700px; height: 700px; animation-delay: 2s; }
+  .cover-circle { display: none; }
+  .cover-circle { display: none; }
 
   @keyframes expand {
     0%, 100% { transform: scale(1); opacity: 0.4; }
@@ -580,10 +567,89 @@
 
 <!-- COVER -->
 <div class="cover" id="cover">
-  <div class="cover-grid"></div>
-  <div class="cover-circle"></div>
-  <div class="cover-circle"></div>
-  <div class="cover-circle"></div>
+
+
+
+
+
+  <!-- Círculo sagrado y red de nodos con Canvas -->
+  <canvas id="comunidadCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+  <script>
+    (function(){
+      const canvas = document.getElementById('comunidadCanvas');
+      const ctx = canvas.getContext('2d');
+      let t=0, running=false;
+      function setSize(){
+        canvas.width  = canvas.parentElement.offsetWidth  || window.innerWidth;
+        canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
+      }
+      function getNodes(cx,cy,r){
+        return Array.from({length:6},(_,i)=>{
+          const a=(i/6)*Math.PI*2-Math.PI/2;
+          return {x:cx+Math.cos(a)*r, y:cy+Math.sin(a)*r, phase:i*0.52};
+        });
+      }
+      function draw(){
+        const w=canvas.width,h=canvas.height;
+        if(!w||!h){t+=0.018;requestAnimationFrame(draw);return;}
+        ctx.clearRect(0,0,w,h);
+        const cx=w/2,cy=h/2;
+        const r=Math.min(w,h)*0.35;
+        t+=0.018;
+        const nodes=getNodes(cx,cy,r);
+
+        // Círculo sagrado — halo pulsante
+        [1.18,1.08,1.0].forEach((scale,i)=>{
+          const pulse=0.5+0.5*Math.sin(t*0.8+i*0.6);
+          ctx.beginPath(); ctx.arc(cx,cy,r*scale,0,Math.PI*2);
+          ctx.strokeStyle='#f59e0b';
+          ctx.globalAlpha=0.04+pulse*0.06;
+          ctx.lineWidth=i===0?0.6:i===1?1:1.5; ctx.stroke();
+        });
+        // Marcas cardinales
+        for(let i=0;i<12;i++){
+          const a=(i/12)*Math.PI*2;
+          const inner=i%3===0?r*0.88:r*0.93;
+          ctx.beginPath();
+          ctx.moveTo(cx+Math.cos(a)*inner,cy+Math.sin(a)*inner);
+          ctx.lineTo(cx+Math.cos(a)*r,    cy+Math.sin(a)*r);
+          ctx.strokeStyle='#f59e0b'; ctx.globalAlpha=0.15;
+          ctx.lineWidth=i%3===0?1:0.5; ctx.stroke();
+        }
+
+        // Conexiones entre nodos (sin centro)
+        for(let i=0;i<nodes.length;i++){
+          for(let j=i+1;j<nodes.length;j++){
+            const pulse=0.5+0.5*Math.sin(t+nodes[i].phase+nodes[j].phase);
+            ctx.beginPath(); ctx.moveTo(nodes[i].x,nodes[i].y); ctx.lineTo(nodes[j].x,nodes[j].y);
+            ctx.strokeStyle='#f59e0b'; ctx.globalAlpha=0.04+pulse*0.08; ctx.lineWidth=0.5; ctx.stroke();
+          }
+        }
+
+        // Nodos exteriores solamente
+        nodes.forEach(n=>{
+          const pulse=0.6+0.4*Math.sin(t*1.5+n.phase);
+          const nr=6+pulse*4;
+          ctx.beginPath(); ctx.arc(n.x,n.y,nr*2.2,0,Math.PI*2);
+          ctx.strokeStyle='#f59e0b'; ctx.globalAlpha=pulse*0.1; ctx.lineWidth=1; ctx.stroke();
+          ctx.beginPath(); ctx.arc(n.x,n.y,nr,0,Math.PI*2);
+          ctx.fillStyle='#f59e0b'; ctx.globalAlpha=0.35+pulse*0.4; ctx.fill();
+        });
+
+        ctx.globalAlpha=1;
+        requestAnimationFrame(draw);
+      }
+      function start(){
+        if(running) return; running=true;
+        setSize(); draw();
+      }
+      window.addEventListener('resize',setSize);
+      const cover=document.getElementById('cover');
+      const obs=new MutationObserver(()=>{ if(cover.style.display!=='none') start(); });
+      obs.observe(cover,{attributes:true,attributeFilter:['style']});
+      setTimeout(start,100);
+    })();
+  </script>
   <span class="cover-eyebrow">Charlando · Aprendiendo Charlando</span>
   <h1 class="cover-title">Comunidad<br>y <em>Resonancia</em></h1>
   <p class="cover-subtitle">El poder del círculo — por qué reunirse con intención transforma todo</p>
@@ -662,7 +728,7 @@
     <div class="concept-card rose">
       <div class="concept-num">≋</div>
       <div class="concept-title">El efecto Maharishi</div>
-      <p class="concept-text">Estudios con grupos de meditadores mostraron que cuando el 1% de una población medita con intención de paz, los índices de violencia y crimen de esa comunidad bajan estadísticamente. No hace falta que todos lo hagan — basta con una masa crítica. El campo colectivo influye sobre el campo individual, y viceversa.</p>
+      <p class="concept-text">Maharishi Mahesh Yogi fue un maestro espiritual indio que llevó la Meditación Trascendental a Occidente en los años 60 — entre sus alumnos estuvieron Los Beatles. Descubrió que cuando el <strong>1% de una población</strong> meditaba con intención de paz, los índices de violencia y crimen de esa comunidad bajaban estadísticamente. Luego fue más lejos: con la <strong>raíz cuadrada del 1%</strong> meditando en coherencia grupal, el efecto era todavía más potente. Lo llamaron el Efecto Maharishi extendido. No hace falta que todos despierten — hace falta que los que despiertan se sostengan en alta frecuencia juntos.</p>
     </div>
   </div>
 
